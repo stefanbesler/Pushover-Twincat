@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>PushoverClient | Struckig </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="PushoverClient | Struckig ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/stefanbesler/Pushover-Twincat/blob/8e0efa126aa4bbf03abb61ca2bab28f47a37dbc2/docs/reference/Pushover/PushoverClient.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Pushover.PushoverClient">
+<h1 id="pushoverclient">PushoverClient</h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="PushoverClient.html">Pushover</a></dd></dl>
+  
+  </div>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">{attribute 'conditionalshow_all_locals'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods and/or properties'}
+FUNCTION_BLOCK PushoverClient
+</code></pre></div>
+<h2 class="section" id="constructors">Constructor</h2>
+<h3 id="Pushover.PushoverClient_FB_init" data-uid="Pushover.PushoverClient.FB_init">
+FB_init
+</h3><a name="FB_init"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">METHOD FB_init (
+ bInitRetains : BOOL,
+ bInCopyCode : BOOL,
+ token : STRING,
+ user : STRING) : BOOL
+</code></pre></div>
+<h4 class="section">Inputs</h4><dl class="parameters">
+<a name="bInitRetains"></a><dt><code>bInitRetains</code> BOOL<dd><p></p></dd><a name="bInCopyCode"></a><dt><code>bInCopyCode</code> BOOL<dd><p></p></dd><a name="token"></a><dt><code>token</code> STRING<dd><p></p></dd><a name="user"></a><dt><code>user</code> STRING<dd><p></p></dd></dl>
+<h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt>BOOL</dt>
+    <dd></dd>
+  </dl>
+<h2 class="section" id="properties">Properties</h2>
+<h3 id="Pushover_PushoverClient_Busy" data-uid="Pushover.PushoverClient.Busy">
+Busy
+</h3><a name="Busy"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">PROPERTY Busy : BOOL
+</code></pre></div>
+<h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt>BOOL</dt>
+    <dd></dd>
+  </dl>
+<h3 id="Pushover_PushoverClient_Error" data-uid="Pushover.PushoverClient.Error">
+Error
+</h3><a name="Error"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">PROPERTY Error : BOOL
+</code></pre></div>
+<h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt>BOOL</dt>
+    <dd></dd>
+  </dl>
+<h3 id="Pushover_PushoverClient_Host" data-uid="Pushover.PushoverClient.Host">
+Host
+</h3><a name="Host"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">PROPERTY Host : STRING
+</code></pre></div>
+<h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt>STRING</dt>
+    <dd></dd>
+  </dl>
+<h3 id="Pushover_PushoverClient_Port" data-uid="Pushover.PushoverClient.Port">
+Port
+</h3><a name="Port"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">PROPERTY Port : UINT
+</code></pre></div>
+<h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt>UINT</dt>
+    <dd></dd>
+  </dl>
+<h3 id="Pushover_PushoverClient_Token" data-uid="Pushover.PushoverClient.Token">
+Token
+</h3><a name="Token"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">PROPERTY Token : STRING
+</code></pre></div>
+<h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt>STRING</dt>
+    <dd></dd>
+  </dl>
+<h3 id="Pushover_PushoverClient_User" data-uid="Pushover.PushoverClient.User">
+User
+</h3><a name="User"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">PROPERTY User : STRING
+</code></pre></div>
+<h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt>STRING</dt>
+    <dd></dd>
+  </dl>
+<h2 class="section" id="methods">Methods</h2>
+<h3 id="Pushover.PushoverClient_Cyclic" data-uid="Pushover.PushoverClient.Cyclic">
+Cyclic
+</h3><a name="Cyclic"></a>
+<p>This method has to be called cyclically and takes care of the communication with the HttpClientProxy.</p>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">METHOD Cyclic ()
+</code></pre></div>
+<h3 id="Pushover.PushoverClient_SendMessageAsync" data-uid="Pushover.PushoverClient.SendMessageAsync">
+SendMessageAsync
+</h3><a name="SendMessageAsync"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">METHOD SendMessageAsync (
+ title : STRING(255),
+ message : STRING(255))
+</code></pre></div>
+<h4 class="section">Inouts</h4><dl class="parameters">
+<a name="title"></a><dt><code>title</code> STRING(255)<dd><p></p></dd><a name="message"></a><dt><code>message</code> STRING(255)<dd><p></p></dd></dl>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/stefanbesler/Pushover-Twincat/blob/8e0efa126aa4bbf03abb61ca2bab28f47a37dbc2/docs/reference/Pushover/PushoverClient.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Documentation powered by <a href="https://github.com/Zeugwerk/zkdoc-action">zkdoc</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
