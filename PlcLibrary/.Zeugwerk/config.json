@@ -44,10 +44,23 @@
           "name": "Untitled1",
           "title": "Untitled1",
           "type": "Application",
-          "packages": [],
+          "packages": [
+            {
+              "version": null,
+              "name": "Pushover",
+              "branch": "main",
+              "target": "TC3.1",
+              "configuration": "Release",
+              "distributor-name": "Stefan Besler",
+              "options": {
+                "optional": true,
+                "hide": true,
+                "qualified-only": true
+              }
+            }
+          ],
           "references": {
             "*": [
-              "Pushover=*",
               "Tc2_Standard=*",
               "Tc2_System=*",
               "Tc3_Module=*"

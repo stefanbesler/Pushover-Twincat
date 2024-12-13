@@ -73,7 +73,7 @@ THEN
   _errorMessage := Tc2_Standard.CONCAT('Error Code: ', UDINT_TO_STRING(_server.ERRID));
 ELSIF NOT _server.BUSY 
 THEN
-  Busy := TRUE;
+  Busy := FALSE;
 END_IF]]></ST>
       </Implementation>
     </Method>

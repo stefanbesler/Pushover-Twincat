@@ -35,7 +35,7 @@ OF
       _step := 99;
     ELSIF NOT _pushoverClient.Busy
     THEN
-      _step := 20;
+      _step := 30;
 		END_IF
     
   30: // Success
