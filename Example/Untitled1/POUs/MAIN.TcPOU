@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{b0184268-90e5-4fb6-9d9f-adf5f043070f}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+  _step : INT;
+  _pushoverClient : Pushover.PushoverClient('<your_api_token>', '<your_user_token>'); 
+  _send : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+IF _send
+THEN
+  _send := FALSE;
+  _step := 10;
+END_IF
+
+CASE _step
+OF
+  0:
+    //_pushover.Host := '192.168.1.100'; // specify host if local Pushover ADS Server is running on a different host
+    //_pushover.Port := 80080; // specify port if local Pushover ADS Server is running on a non-default port
+    
+  10:
+    _pushoverClient.SendMessageAsync('PLC1', 'Hello World!');
+    _step := 20;
+    
+  20:
+    _pushoverClient.Cyclic();
+  
+    IF _pushoverClient.Error
+    THEN
+      _step := 99;
+    ELSIF NOT _pushoverClient.Busy
+    THEN
+      _step := 20;
+		END_IF
+    
+  30: // Success
+    ;
+    
+  99: // Error
+    ;
+END_CASE]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

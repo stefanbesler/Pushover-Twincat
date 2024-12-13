@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PushoverClient" Id="{7e1e9724-26e2-0084-1004-42ca9b5de5a8}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'conditionalshow_all_locals'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods and/or properties'}
+FUNCTION_BLOCK PushoverClient
+VAR
+  _host : STRING;
+  _port : UINT;
+  
+  _busy : BOOL;
+  _error : BOOL;
+  _errorMessage : STRING(255);
+  
+  _request : PushoverRequest;
+  _server : Tc2_System.ADSRDWRTEX;
+END_VAR
+VAR CONSTANT
+  _defaultHost : STRING := '127.0.0.1.1.1';
+  _defaultPort : UINT := 25733;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="Busy" Id="{72c62e30-e885-4eb2-98b1-f1d26e618bab}">
+      <Declaration><![CDATA[PROPERTY Busy : BOOL]]></Declaration>
+      <Get Name="Get" Id="{638df4c4-ce17-46ec-9ad7-929d45026307}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Busy := _busy;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{72c23c85-7457-4c77-954b-13dc2bbf6698}">
+        <Declaration><![CDATA[PRIVATE VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_busy := Busy;
+
+IF _busy
+THEN
+  _error := FALSE;
+END_IF]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Cyclic" Id="{426e1ace-8aa7-0373-078f-f6c08bda3162}">
+      <Declaration><![CDATA[/// This method has to be called cyclically and takes care of the communication with the HttpClientProxy.
+METHOD Cyclic
+VAR_INST
+  errorTrig : Tc2_Standard.R_TRIG;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Busy
+THEN
+  RETURN;
+END_IF
+
+_server(IDXOFFS:=0, 
+        WRITELEN:=SIZEOF(_request),
+        SRCADDR:=ADR(_request),
+        WRTRD:=TRUE, 
+        TMOUT:=T#5S,
+        ERR=>,
+        BUSY=>,
+        ERRID=>);
+  
+IF _server.ERR // fallback to proxy
+THEN
+  Error := TRUE;
+  _errorMessage := Tc2_Standard.CONCAT('Error Code: ', UDINT_TO_STRING(_server.ERRID));
+ELSIF NOT _server.BUSY 
+THEN
+  Busy := TRUE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Error" Id="{e66821e4-2ee0-4372-9ea9-1eb4dd33a529}">
+      <Declaration><![CDATA[PROPERTY Error : BOOL]]></Declaration>
+      <Get Name="Get" Id="{e7a38956-1dfd-4ffd-92e4-bca9edabac1a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Error := _error;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{32d3bb0b-6ab6-467b-877b-dec253655bc9}">
+        <Declaration><![CDATA[PRIVATE VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_error := Error;
+
+IF _error
+THEN
+  _busy := FALSE;
+END_IF]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="FB_init" Id="{35c9eeb9-61ee-4ff2-8c41-88a6a762ab87}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+  token : STRING;
+  user : STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.Token := token;
+THIS^.User := user;
+THIS^.Host := _defaultHost;
+THIS^.Port := _defaultPort;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Host" Id="{d06b2e65-bd92-4aa0-a8cf-123040bf4d63}">
+      <Declaration><![CDATA[PROPERTY Host : STRING]]></Declaration>
+      <Get Name="Get" Id="{a03127e3-650c-4e7b-943a-977d03c8073e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Host := _host;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{c8ced228-6a9e-4ba5-b049-2d5511e74bd0}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_host := Host;
+
+_server(WRTRD := FALSE,
+       NETID := _host,
+       PORT := _port,
+       BUSY=>,
+       ERR=>,
+       ERRID=>);]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Port" Id="{6d99f1c3-57ba-40cf-a01f-00d80a87bd49}">
+      <Declaration><![CDATA[PROPERTY Port : UINT]]></Declaration>
+      <Get Name="Get" Id="{62cd6a40-8a44-4f9c-bdf5-2065126bdfe3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Port := _port;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{e9a96dd4-dec0-4ef1-bb24-acc78eea7c5b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_port := Port;
+
+_server(WRTRD := FALSE,
+       NETID := _host,
+       PORT := _port,
+       BUSY=>,
+       ERR=>,
+       ERRID=>);]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="SendMessageAsync" Id="{2514d27a-339b-498f-a48f-770ba2a832fe}">
+      <Declaration><![CDATA[METHOD SendMessageAsync
+VAR_IN_OUT CONSTANT
+  title : STRING(255);
+  message : STRING(255);
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Busy
+THEN
+  _request.TitleLength := Tc2_Standard.LEN(title);
+  _request.Title := title;
+  _request.MessageLength := Tc2_Standard.LEN(message);
+  _request.Message := message;
+  
+  _server(WRTRD := FALSE,
+         IDXGRP:=0,
+         BUSY=>,
+         ERR=>,
+         ERRID=>);    
+  Busy := TRUE;
+ELSE
+  Error := TRUE;
+  _errorMessage := 'Client can not executed parallel requests!';
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Token" Id="{bf5e10e9-5772-4f05-993b-dd3d2d60441b}">
+      <Declaration><![CDATA[PROPERTY Token : STRING]]></Declaration>
+      <Get Name="Get" Id="{d6e8aca1-e3e6-4f04-8a9f-bce9c98cf5a4}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Token := _request.Token;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{1a083cd8-6ea7-4bd2-9213-fc1474c0c5d4}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_request.Token := Token;
+_request.TokenLength := Tc2_Standard.LEN(_request.Token);]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="User" Id="{82b03ea8-9b37-4d8a-bdb9-35faa26390b3}">
+      <Declaration><![CDATA[PROPERTY User : STRING]]></Declaration>
+      <Get Name="Get" Id="{0226d001-c16a-46fa-ab97-181d7e748daf}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[User := _request.User;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{dc42dc15-95ff-482b-b929-6f6f0a82ad3e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_request.User := User;
+_request.UserLength := Tc2_Standard.LEN(_request.User);]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>
