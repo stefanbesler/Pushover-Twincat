@@ -1,5 +1,7 @@
 .Zeugwerk/libraries
 # TwinCAT files
+gh-pages
+gh-pages.pub
 *.db
 *.db:encryptable
 *.tpy
