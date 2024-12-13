@@ -9,7 +9,7 @@
    - `C:\Windows\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe (for 64-bit)`
 1. Install the Windows Service by opening a Command Prompt with Administrator privileges and running:
    ```
-   InstallUtil.exe PushoverCat.exe
+   <Path to InstallUtil.exe>\InstallUtil.exe PushoverCat.exe
    ```
 
 1. Start the Windows Service by running the command
@@ -30,5 +30,5 @@
 
    ```
    net stop PushoverCat
-   InstallUtil.exe /u PushoverCat.exe
+    <Path to InstallUtil.exe>\InstallUtil.exe /u PushoverCat.exe
    ```
