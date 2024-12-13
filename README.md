@@ -34,7 +34,7 @@ _pushoverClient.Cyclic();
 
 1. Install the Windows Service by opening a Command Prompt with Administrator privileges and running:
    ```
-   <Path to InstallUtil.exe>\InstallUtil.exe PushoverCat.exe
+   <Path to InstallUtil.exe>\InstallUtil.exe PushoverTwincatService.exe
    ```
 
    `InstallUtil.exe` can be typically found in
@@ -43,7 +43,7 @@ _pushoverClient.Cyclic();
 
 1. Start the Windows Service by running the command
    ```
-   net start PushoverCat
+   net start PushoverTwincatService
    ```
 
   Alternatively you can start the service in the Windows Service Dialog.
@@ -54,8 +54,8 @@ _pushoverClient.Cyclic();
 1. Uninstall the Windows Service by opening a Command Prompt with Administrator privileges and running:
 
    ```
-   net stop PushoverCat
-    <Path to InstallUtil.exe>\InstallUtil.exe /u PushoverCat.exe
+   net stop PushoverTwincatService
+    <Path to InstallUtil.exe>\InstallUtil.exe /u PushoverTwincatService.exe
    ```
 
    `InstallUtil.exe` can be typically found in
