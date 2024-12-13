@@ -17,7 +17,7 @@ jobs:
         with:
           username: ${{ secrets.ACTIONS_ZGWK_USERNAME }}
           password: ${{ secrets.ACTIONS_ZGWK_PASSWORD }}
-          working-directory: "PlcLibrary"
+          workspace: "PlcLibrary"
       - name: Publish Unittest
         uses: EnricoMi/publish-unit-test-result-action@v1
         with:
