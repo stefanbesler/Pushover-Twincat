@@ -1,0 +1,61 @@
+{
+  "fileversion": 1,
+  "solution": "Pushover.sln",
+  "projects": [
+    {
+      "name": "Pushover",
+      "plcs": [
+        {
+          "version": "1.0.0",
+          "distributor-name": "Stefan Besler",
+          "name": "Pushover",
+          "title": "Pushover",
+          "type": "Library",
+          "packages": [
+            {
+              "version": null,
+              "name": "Testbench",
+              "branch": "main",
+              "target": "TC3.1",
+              "configuration": "Release",
+              "distributor-name": "Zeugwerk GmbH",
+              "options": {
+                "optional": true,
+                "hide": true,
+                "qualified-only": true
+              }
+            }
+          ],
+          "references": {
+            "*": [
+              "Tc2_Standard=*",
+              "Tc2_System=*"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Example",
+      "plcs": [
+        {
+          "version": "1.0.0.0",
+          "distributor-name": null,
+          "name": "Untitled1",
+          "title": "Untitled1",
+          "type": "Application",
+          "packages": [],
+          "references": {
+            "*": [
+              "Pushover=*",
+              "Tc2_Standard=*",
+              "Tc2_System=*",
+              "Tc3_Module=*"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "directories": null
+}
