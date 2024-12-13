@@ -1,5 +1,4 @@
-# PushoverCAT
-
+# Pushover Twincat
 
 [Pushover](https://pushover.net/) is a cloud-based service for sending real-time notifications. It allows you to send alerts, reminders, and messages to smartphones and computers. Pushover supports various platforms, including Android, iOS, Windows, and macOS. It provides APIs to send messages programmatically, making it ideal for industrial applications where real-time notifications are crucial.
 
@@ -8,24 +7,6 @@ There are two main parts of this project
 
 1. An ADS Server implemented with C#, which sends requests to pushover via the pushover api
 1. A PLC Library, which sends requests to the ADS Server
-
-Notifications can be send as follows (also see the Example folder in this repository)
-
-```sti
-PROGRAM MAIN
-VAR
-   _send : BOOL;
-   _pushoverClient : PushoverClient('<your_pushover_apptoken>', '<your_pushover_user>');
-END_VAR
-
-IF _send
-THEN
-   _send := FALSE;
-   _pushoverClient.SendMessageAsync('Hello World!');
-END_IF
-
-_pushoverClient.Cyclic();
-```
 
 
 ## Installation
@@ -47,6 +28,28 @@ _pushoverClient.Cyclic();
    ```
 
   Alternatively you can start the service in the Windows Service Dialog.
+
+## Usage
+
+1. Reference the `Pushover` PLC Library with the [Twinpack](https://github.com/Zeugwerk/Twinpack) Package Manager. Alternatively, get it from the [latest GitHub release](https://github.com/stefanbesler/pushover-cat/releases/latest), install and reference it manually with TwinCAT.
+   
+2. Use the following code for sending push notifications
+
+   ```sti
+   PROGRAM MAIN
+   VAR
+      _send : BOOL;
+      _pushoverClient : Pushover.PushoverClient('<your_pushover_apptoken>', '<your_pushover_user>');
+   END_VAR
+   
+   IF _send
+   THEN
+      _send := FALSE;
+      _pushoverClient.SendMessageAsync('Hello World!');
+   END_IF
+   
+   _pushoverClient.Cyclic();
+   ```
 
 
 ## Uninstall
