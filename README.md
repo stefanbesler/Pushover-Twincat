@@ -15,13 +15,13 @@ Notifications can be send as follows (also see the Example folder in this reposi
 PROGRAM MAIN
 VAR
    _send : BOOL;
-   _pushover : Pushover('<your_pushover_apptoken>', '<your_pushover_user>');
+   _pushoverClient : PushoverClient('<your_pushover_apptoken>', '<your_pushover_user>');
 END_VAR
 
 IF _send
 THEN
    _send := FALSE;
-   _pushover.SendMessageAsync('Hello World!');
+   _pushoverClient.SendMessageAsync('Hello World!');
 END_IF
 ```
 
