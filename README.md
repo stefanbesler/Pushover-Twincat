@@ -23,6 +23,8 @@ THEN
    _send := FALSE;
    _pushoverClient.SendMessageAsync('Hello World!');
 END_IF
+
+_pushoverClient.Cyclic();
 ```
 
 
