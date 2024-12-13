@@ -15,6 +15,7 @@ jobs:
         with:
           username: ${{ secrets.ACTIONS_ZGWK_USERNAME }}
           password: ${{ secrets.ACTIONS_ZGWK_PASSWORD }}
+          filepath: .
           working-directory: "PlcLibrary"
           doc-folder: "docs"
       - name: Deploy
