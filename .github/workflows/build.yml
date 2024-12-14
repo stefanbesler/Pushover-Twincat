@@ -1,4 +1,4 @@
-name: Build/Test
+name: Build
 on:
   push:
     branches:
@@ -30,9 +30,9 @@ jobs:
           files: archive/tests/**/TcUnit_xUnit_results.xml
           
       - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: Pushover
+          name: PlcLibrary
           path: |
             **/*library
 
@@ -55,9 +55,8 @@ jobs:
       working-directory: PushoverTwincatService
 
     - name: Upload Build Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: BuildOutputs
-        path: .
-        working-directory: PushoverTwincatService/PushoverTwincatService/bin/Release       
+        name: PushoverTwinpackService
+        path: PushoverTwincatService/PushoverTwincatService/bin/Release   
           
