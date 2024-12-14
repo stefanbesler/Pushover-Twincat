@@ -12,8 +12,8 @@ on:
     branches: [ main ]
   workflow_dispatch:
 jobs:
-  Build:
-    name: Build/Test
+  build-plc-library:
+    name: Build Pushover.library
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -23,13 +23,41 @@ jobs:
           username: ${{ secrets.ACTIONS_ZGWK_USERNAME }}
           password: ${{ secrets.ACTIONS_ZGWK_PASSWORD }}
           workspace: "PlcLibrary"
+          
       - name: Publish Unittest
         uses: EnricoMi/publish-unit-test-result-action@v1
         with:
           files: archive/tests/**/TcUnit_xUnit_results.xml
-      - name: Upload
+          
+      - name: Upload Build Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: Pushover
           path: |
-            **/*library    
+            **/*library
+
+  build-windows-service:            
+    name: Build PushoverTwinpackService.exe
+    runs-on: windows-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1
+      
+    - name: Restore NuGet packages
+      run: nuget restore PushoverTwincatService.sln
+      working-directory: PushoverTwincatService
+
+    - name: Build Solution
+      run: msbuild PushoverTwincatService.sln /p:Configuration=Release
+      working-directory: PushoverTwincatService
+
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: BuildOutputs
+        path: .
+        working-directory: PushoverTwincatService/PushoverTwincatService/bin/Release       
+          
