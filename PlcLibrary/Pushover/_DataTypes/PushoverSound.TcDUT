@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="PushoverSound" Id="{d41ff4d3-5a49-43c9-a700-827681d6457f}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE PushoverSound :
+(
+  Pushover,
+  Bike,
+  Bugle,
+  Cashregister,
+  Classical,
+  Cosmic,
+  Falling,
+  Gamelan,
+  Incoming,
+  Intermission,
+  Magic,
+  Mechanical,
+  Pianobar,
+  Siren,
+  Spacealarm,
+  Tugboat,
+  Alien,
+  Climb,
+  Persistent_,
+  Echo,
+  Updown,
+  Vibrate,
+  None
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

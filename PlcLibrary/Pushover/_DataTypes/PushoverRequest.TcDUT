@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="PushoverRequest" Id="{f17a5064-8416-4c04-9856-ade6756db10d}">
+    <Declaration><![CDATA[TYPE INTERNAL PushoverRequest :
+STRUCT
+  TokenLength : INT;
+  UserLength : INT;
+  TitleLength : INT;  
+  MessageLength : INT;
+  DeviceLength : INT;
+  UrlLength : INT;
+  UrlTitleLength : INT;
+  CallbackLength : INT;  
+  ProxyHostLength : INT;  
+  
+  Token : STRING;
+  User : STRING;
+  Retry : INT;
+  Expire : INT;  
+  MessageType : PushoverMessageType;  
+  Priority : PushoverPriority;
+  Sound : PushoverSound;
+  Timestamp : INT; //< UNIX Timestamp in seconds 
+  TimeToLive : INT; //< in seconds
+  ProxyPort : INT;
+
+  Title : STRING(250);
+  Message : STRING(255);
+  Device : STRING(80);
+  Url : STRING(512);  
+  UrlTitle : STRING(100);
+  Callback : STRING(255);
+  ProxyHost : STRING(80);
+  
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

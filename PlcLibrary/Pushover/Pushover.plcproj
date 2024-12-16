@@ -18,16 +18,31 @@
     <Company>Stefan Besler</Company>
     <Released>false</Released>
     <Title>Pushover</Title>
-    <ProjectVersion>1.0.0</ProjectVersion>
+    <ProjectVersion>1.1.0</ProjectVersion>
     <DefaultNamespace>Pushover</DefaultNamespace>
     <Placeholder>Pushover</Placeholder>
     <Author>Stefan Besler and contributors</Author>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="IPushoverClient.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PushoverClient.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="PushoverRequest.TcDUT">
+    <Compile Include="_DataTypes\PushoverMessageType.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_DataTypes\PushoverPriority.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_DataTypes\PushoverRequest.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_DataTypes\PushoverSound.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Tests\PushoverClientTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -51,6 +66,10 @@
       <QualifiedOnly>true</QualifiedOnly>
       <HideWhenReferencedAsDependency>true</HideWhenReferencedAsDependency>
     </PlaceholderReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="_Tests" />
+    <Folder Include="_DataTypes" />
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>

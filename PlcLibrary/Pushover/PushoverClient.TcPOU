@@ -1,17 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="PushoverClient" Id="{7e1e9724-26e2-0084-1004-42ca9b5de5a8}" SpecialFunc="None">
-    <Declaration><![CDATA[{attribute 'conditionalshow_all_locals'}
+    <Declaration><![CDATA[/// This the main class of the library. It represents a Pushover app and
+/// is tied to a unique API token. When constructing the object it is mandatory to pass
+/// an `app-token` as well as a `user-token`.
+///
+/// Here's a simple example, which sends a pushover notification to a specific device of the user.
+/// Note that this class uses a fluent API to configure the properties of a notification.
+/// The actual action of sending the notification is triggered by [SendMessageAsync](xref:Pushover.PushoverClient#SendMessageAsync).
+/// The ´Async´ Suffix in this method indicates that this action has to be waited for by checking for ´NOT _pushoverClient.Busy´ before
+/// sending another notification.
+///
+/// ```sti
+/// PROGRAM MAIN
+/// VAR
+///   _send : BOOL; // boolean, which can be triggered to send a message
+///   _pushoverClient : Pushover.PushoverClient('<your_pushover_apptoken>', '<your_pushover_user>'); 
+/// END_VAR
+/// ```
+/// ```std
+/// IF _send
+/// THEN
+///   _send := FALSE;
+///   _pushoverClient
+///     .SendMessageAsync('Hello World!');
+/// END_IF
+///
+/// _pushoverClient.Cyclic();
+/// ```
+{attribute 'conditionalshow_all_locals'}
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods and/or properties'}
-FUNCTION_BLOCK PushoverClient
+FUNCTION_BLOCK PushoverClient IMPLEMENTS IPushoverClient
 VAR
-  _host : STRING;
-  _port : UINT;
-  
   _busy : BOOL;
   _error : BOOL;
   _errorMessage : STRING(255);
   
+  _response : STRING(255);
   _request : PushoverRequest;
   _server : Tc2_System.ADSRDWRTEX;
 END_VAR
@@ -23,7 +48,11 @@ END_VAR]]></Declaration>
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Property Name="Busy" Id="{72c62e30-e885-4eb2-98b1-f1d26e618bab}">
-      <Declaration><![CDATA[PROPERTY Busy : BOOL]]></Declaration>
+      <Declaration><![CDATA[/// This property can be used to check if the client is ready for sending a notification. If the client is not 
+/// ready or an error occurs during sending (e.g. not internet connection, Pushover Twincat Service is not running, ...)
+/// the property [Error](xref:Pushover.PushoverClient#Error) returns `true`.
+{attribute 'monitoring' := 'call'}
+PROPERTY Busy : BOOL]]></Declaration>
       <Get Name="Get" Id="{638df4c4-ce17-46ec-9ad7-929d45026307}">
         <Declaration><![CDATA[VAR
 END_VAR
@@ -33,7 +62,7 @@ END_VAR
         </Implementation>
       </Get>
       <Set Name="Set" Id="{72c23c85-7457-4c77-954b-13dc2bbf6698}">
-        <Declaration><![CDATA[PRIVATE VAR
+        <Declaration><![CDATA[PROTECTED VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
@@ -46,8 +75,39 @@ END_IF]]></ST>
         </Implementation>
       </Set>
     </Property>
+    <Method Name="Clear" Id="{0f0aec67-27b6-49f3-bec9-7f030e47c04d}">
+      <Declaration><![CDATA[/// Resets all `WithXXX` statements to their default values.
+METHOD Clear : IPushoverClient
+VAR
+  token : STRING;
+  user : STRING;
+  host : STRING := '127.0.0.1.1.1';
+  port : UINT := 25733;  
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[token := THIS^.Token;
+user := THIS^.User;
+host := THIS^.Host;
+port := THIS^.Port;
+
+Tc2_System.MEMSET(ADR(_request), 0, SIZEOF(_request));
+_request.Priority := PushoverPriority.Normal;
+_request.Sound := PushoverSound.Pushover;
+
+THIS^.Token := token;
+THIS^.User := user;
+THIS^.Host := _defaultHost;
+THIS^.Port := _defaultPort;
+
+Clear := THIS^;]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Cyclic" Id="{426e1ace-8aa7-0373-078f-f6c08bda3162}">
-      <Declaration><![CDATA[/// This method has to be called cyclically and takes care of the communication with the HttpClientProxy.
+      <Declaration><![CDATA[/// This method has to be called cyclically and takes care of the communication with the `Pushover Twincat Service`, which is reached 
+/// via [Host](xref:Pushover.PushoverClient#Host) and [Port](xref:Pushover.PushoverClient#Port).
+/// You can use the properties [Busy](xref:Pushover.PushoverClient#Busy) and [Error](xref:Pushover.PushoverClient#Error) to check weather an
+/// operation was successful (`NOT Busy AND NOT Error`) or failed (`Error`), respectively.
 METHOD Cyclic
 VAR_INST
   errorTrig : Tc2_Standard.R_TRIG;
@@ -61,6 +121,8 @@ END_IF
 _server(IDXOFFS:=0, 
         WRITELEN:=SIZEOF(_request),
         SRCADDR:=ADR(_request),
+        DESTADDR:=ADR(_response),
+        READLEN:=SIZEOF(_response),
         WRTRD:=TRUE, 
         TMOUT:=T#5S,
         ERR=>,
@@ -70,15 +132,40 @@ _server(IDXOFFS:=0,
 IF _server.ERR // fallback to proxy
 THEN
   Error := TRUE;
-  _errorMessage := Tc2_Standard.CONCAT('Error Code: ', UDINT_TO_STRING(_server.ERRID));
+  _errorMessage := _response;
 ELSIF NOT _server.BUSY 
 THEN
   Busy := FALSE;
 END_IF]]></ST>
       </Implementation>
     </Method>
+    <Method Name="EnableHtml" Id="{89eb8acd-b285-4eec-86d7-00035e5cd1dd}">
+      <Declaration><![CDATA[/// Enables Monospace in the pushover message
+/// Either [HTML](xref:Pushover.PushoverClient#EnableHtml) or [Monospace](xref:Pushover.PushoverClient#EnableMonspace) can be enabled
+METHOD EnableHtml : IPushoverClient
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request.MessageType := PushoverMessageType.Html;
+
+EnableHtml := THIS^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EnableMonospace" Id="{c310f4b2-c2e7-4a9c-91ed-7d2738403dad}">
+      <Declaration><![CDATA[/// Enables HTML in the pushover message
+/// Either [HTML](xref:Pushover.PushoverClient#EnableHtml) or [Monospace](xref:Pushover.PushoverClient#EnableMonspace) can be enabled
+METHOD EnableMonospace : IPushoverClient
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request.MessageType := PushoverMessageType.Monospace;
+
+EnableMonospace := THIS^;]]></ST>
+      </Implementation>
+    </Method>
     <Property Name="Error" Id="{e66821e4-2ee0-4372-9ea9-1eb4dd33a529}">
-      <Declaration><![CDATA[PROPERTY Error : BOOL]]></Declaration>
+      <Declaration><![CDATA[/// Returns `true` if any error occured when calling an `XXX_Async` method of this object. The details of the error
+/// are available by checking the proeprty
+{attribute 'monitoring' := 'call'}
+PROPERTY Error : BOOL]]></Declaration>
       <Get Name="Get" Id="{e7a38956-1dfd-4ffd-92e4-bca9edabac1a}">
         <Declaration><![CDATA[VAR
 END_VAR
@@ -88,7 +175,7 @@ END_VAR
         </Implementation>
       </Get>
       <Set Name="Set" Id="{32d3bb0b-6ab6-467b-877b-dec253655bc9}">
-        <Declaration><![CDATA[PRIVATE VAR
+        <Declaration><![CDATA[PROTECTED VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
@@ -101,12 +188,25 @@ END_IF]]></ST>
         </Implementation>
       </Set>
     </Property>
+    <Method Name="ErrorMessage" Id="{7b499ef8-eacf-4d4f-8980-fd3275b78050}">
+      <Declaration><![CDATA[/// Only valid if `Error=TRUE`, returns the explanation why the call of an `XXX_Async` method failed.
+METHOD ErrorMessage : STRING(255);
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ErrorMessage := _errorMessage;]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="FB_init" Id="{35c9eeb9-61ee-4ff2-8c41-88a6a762ab87}">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+  
+  /// The pushover API token
   token : STRING;
+  
+  /// The user/group key (not e-mail address) of your user (or you),
+  /// viewable when logged into the [pushover dashboard](https://pushover.net/login)
   user : STRING;
 END_VAR
 ]]></Declaration>
@@ -114,17 +214,20 @@ END_VAR
         <ST><![CDATA[THIS^.Token := token;
 THIS^.User := user;
 THIS^.Host := _defaultHost;
-THIS^.Port := _defaultPort;]]></ST>
+THIS^.Port := _defaultPort;
+
+Clear();]]></ST>
       </Implementation>
     </Method>
     <Property Name="Host" Id="{d06b2e65-bd92-4aa0-a8cf-123040bf4d63}">
-      <Declaration><![CDATA[PROPERTY Host : STRING]]></Declaration>
+      <Declaration><![CDATA[/// Returns the AMS Net Id of the `Pushover Twincat Service`. Defauls to localhost
+PROPERTY Host : STRING]]></Declaration>
       <Get Name="Get" Id="{a03127e3-650c-4e7b-943a-977d03c8073e}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Host := _host;]]></ST>
+          <ST><![CDATA[Host := _server.NETID;]]></ST>
         </Implementation>
       </Get>
       <Set Name="Set" Id="{c8ced228-6a9e-4ba5-b049-2d5511e74bd0}">
@@ -132,11 +235,8 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[_host := Host;
-
-_server(WRTRD := FALSE,
-       NETID := _host,
-       PORT := _port,
+          <ST><![CDATA[_server(WRTRD := FALSE,
+       NETID := Host,
        BUSY=>,
        ERR=>,
        ERRID=>);]]></ST>
@@ -150,7 +250,7 @@ _server(WRTRD := FALSE,
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Port := _port;]]></ST>
+          <ST><![CDATA[Port := _server.PORT;]]></ST>
         </Implementation>
       </Get>
       <Set Name="Set" Id="{e9a96dd4-dec0-4ef1-bb24-acc78eea7c5b}">
@@ -158,11 +258,8 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[_port := Port;
-
-_server(WRTRD := FALSE,
-       NETID := _host,
-       PORT := _port,
+          <ST><![CDATA[_server(WRTRD := FALSE,
+       PORT := Port,
        BUSY=>,
        ERR=>,
        ERRID=>);]]></ST>
@@ -235,5 +332,164 @@ _request.UserLength := Tc2_Standard.LEN(_request.User);]]></ST>
         </Implementation>
       </Set>
     </Property>
+    <Method Name="WithCallback" Id="{bbf0f02d-aa8b-4a81-b76e-2d539229251b}">
+      <Declaration><![CDATA[/// Callback parameter may be supplied with a publicly-accessible URL that the
+/// pushover servers will send a request to when the user has acknowledged your
+/// notification.
+/// Only used if priority is set to emergency.
+METHOD WithCallback : IPushoverClient
+VAR_IN_OUT CONSTANT
+  callback : STRING(255);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request.CallbackLength := Tc2_Standard.LEN(callback);
+_request.Callback := callback;
+
+WithCallback := THIS^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WithDevice" Id="{8e580a7c-b56f-4317-ad3d-a4179f302058}">
+      <Declaration><![CDATA[/// Your user's device name to send the message directly to that device,
+/// rather than all of the user's devices
+METHOD WithDevice : IPushoverClient
+VAR_IN_OUT CONSTANT
+  device : STRING(80);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request.DeviceLength := Tc2_Standard.LEN(device);
+_request.Device := device;
+
+WithDevice := THIS^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WithExpire" Id="{0fb39e03-bbfd-4c10-84ee-42256ae2318f}">
+      <Declaration><![CDATA[/// Specifies how many seconds your notification will continue to be retried for (every retry seconds).
+/// Only required if priority is set to emergency.
+METHOD WithExpire : IPushoverClient
+VAR_INPUT
+  expire : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request.Expire := expire;
+
+WithExpire := THIS^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WithPriority" Id="{24bec2e3-b8f2-4b8e-a20b-a7cebcd754b2}">
+      <Declaration><![CDATA[/// Priority of the message
+METHOD WithPriority : IPushoverClient
+VAR_INPUT
+  priority : PushoverPriority;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request.Priority := priority;
+
+WithPriority := THIS^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WithProxy" Id="{76ef8889-93e9-4000-9e62-e82a5912536b}">
+      <Declaration><![CDATA[/// Adds a ttl to the Pushover message
+METHOD WithProxy : IPushoverClient
+VAR_IN_OUT CONSTANT
+  host : STRING(80);
+END_VAR
+VAR_INPUT
+  port : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request.ProxyHostLength := Tc2_Standard.LEN(host);
+_request.ProxyHost := host;
+_request.ProxyPort := port;
+
+WithProxy := THIS^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WithRetry" Id="{dfa2febd-6783-4cf8-9fac-f6f2b50b134c}">
+      <Declaration><![CDATA[/// Specifies how often (in seconds) the Pushover servers will send the same notification to the user.
+/// Only required if priority is set to emergency.
+METHOD WithRetry : IPushoverClient
+VAR_INPUT
+  retry : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request.Retry := retry;
+
+WithRetry := THIS^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WithSound" Id="{2f94b457-e6b6-4d90-b02b-1c02343075fc}">
+      <Declaration><![CDATA[/// Priority of the message
+METHOD WithSound : IPushoverClient
+VAR_INPUT
+  sound : PushoverSound;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request.Sound := sound;
+
+WithSound := THIS^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WithTimestamp" Id="{58dfffc6-9d1f-430f-bf7c-b0b659b98722}">
+      <Declaration><![CDATA[/// A Unix timestamp of your message's date and time to display to the user,
+/// rather than the time your message is received by the pushover API
+METHOD WithTimestamp : IPushoverClient
+VAR_INPUT
+  timestamp : INT; //< UNIX Timestamp in seconds
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request.Timestamp := timestamp;
+
+WithTimestamp := THIS^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WithTimeToLive" Id="{dfa164aa-34bd-4403-ab2b-ee2c20167769}">
+      <Declaration><![CDATA[/// Adds a ttl to the Pushover message
+METHOD WithTimeToLive : IPushoverClient
+VAR_INPUT
+  ttl : INT; //< Seconds until this message should be automatically removed from the device. Needs to be positive
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request.TimeToLive := ttl;
+
+WithTimeToLive := THIS^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WithUrl" Id="{95ed75c2-d162-4897-889c-2e97e50c34a7}">
+      <Declaration><![CDATA[/// A supplementary URL to show with your message
+METHOD WithUrl : IPushoverClient
+VAR_IN_OUT CONSTANT
+  url : STRING(255);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request.UrlLength := Tc2_Standard.LEN(url);
+_request.Url := url;
+
+WithUrl := THIS^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WithUrlTitle" Id="{2fa3cc93-95d4-46b3-830a-74d9f9be2636}">
+      <Declaration><![CDATA[/// A title for your supplementary URL, otherwise just the URL is shown
+METHOD WithUrlTitle : IPushoverClient
+VAR_IN_OUT CONSTANT
+  urlTitle : STRING(255);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request.UrlTitleLength := Tc2_Standard.LEN(urlTitle);
+_request.UrlTitle := urlTitle;
+
+WithUrlTitle := THIS^;]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

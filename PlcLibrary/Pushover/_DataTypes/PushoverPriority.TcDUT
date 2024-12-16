@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="PushoverPriority" Id="{1e0d61ff-46b2-4fb4-9bc1-8eb2ed4e1c0b}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE PushoverPriority :
+(
+  /// When the priority parameter is specified with a value of -2, messages will be considered lowest priority 
+  /// and will not generate any notification. On iOS, the application badge number will be increased.
+	Lowest := -2,
+  
+  /// Messages with a priority parameter of -1 will be considered low priority and will not generate any sound 
+  /// or vibration, but will still generate a popup/scrolling notification depending on the client operating system. 
+  /// Messages delivered during a user's quiet hours are sent as though they had a priority of (-1).
+  Low := -1,
+  
+  /// Messages sent without a priority parameter, or sent with the parameter set to 0, will have the default priority. 
+  /// These messages trigger sound, vibration, and display an alert according to the user's device settings. 
+  /// On iOS, the message will display at the top of the screen or as a modal dialog, as well as in the notification center.
+  /// On Android, the message will scroll at the top of the screen and appear in the notification center.
+  ///
+  /// If a user has quiet hours set and your message is received during those times, your message will be delivered as though it had a priority of -1.
+  Normal := 0,
+  
+  /// Messages sent with a priority of 1 are high priority messages that bypass a user's quiet hours.
+  /// These messages will always play a sound and vibrate (if the user's device is configured to) 
+  /// regardless of the delivery time. High-priority should only be used when necessary and appropriate.
+  /// 
+  /// High-priority messages are highlighted in red in the device clients.
+  High := 1,
+  
+  /// Emergency-priority notifications are similar to high-priority notifications, but they are repeated until the notification 
+  /// is acknowledged by the user. These are designed for dispatching and on-call situations where it is critical that a 
+  /// notification be repeatedly shown to the user (or all users of the group that the message was sent to) until it is acknowledged.
+  /// The first user in a group to acknowledge a message will cancel retries for all other users in the group.
+  ///
+  /// Applications sending emergency notifications are issued a receipt that can be used to get the status of a notification and 
+  /// find out whether it was acknowledged, or automatically receive a callback when the user has acknowledged the notification. 
+  ///
+  /// To send an emergency-priority notification, the priority parameter must be set to 2 and the retry and expire parameters must be supplied.
+  ///
+  /// The retry parameter specifies how often (in seconds) the Pushover servers will send the same notification to the user. 
+  /// In a situation where your user might be in a noisy environment or sleeping, retrying the notification (with sound and vibration) 
+  /// will help get his or her attention. This parameter must have a value of at least 30 seconds between retries.
+  ///
+  /// The expire parameter specifies how many seconds your notification will continue to be retried for (every retry seconds). 
+  /// If the notification has not been acknowledged in expire seconds, it will be marked as expired and will stop being sent to the user. 
+  /// Note that the notification is still shown to the user after it is expired, but it will not prompt the user for acknowledgement.
+  /// This parameter must have a maximum value of at most 10800 seconds (3 hours), though the total number of retries will be capped at 50 regardless of the expire parameter.
+  ///
+  /// For example, sending a retry parameter of 60 and an expire parameter of 1800 will cause your notification to be retried
+  /// every 60 seconds for 30 minutes. A retry parameter of 30 and an expire parameter of 10800 will retry every 30 seconds up to 25 minutes due to the cap of 50 retries.
+  ///
+  /// The optional callback parameter may be supplied with a publicly-accessible URL that pushover servers will 
+  /// send a request to when the user has acknowledged your notification.
+  /// When your application sends an emergency-priority notification, pushover API will respond with a receipt value that can be used to get information about
+  /// whether the notification has been acknowledged. See pushover receipts and callbacks section for more information.
+  /// If your application is not capable of storing receipt identifiers, you can send a tags parameter of comma-separated, arbitrary tags 
+  /// which will be stored with the receipt on pushover servers. You can then use the cancel_by_tag API call to cancel all receipts with a specific tag.
+  Emergency := 2
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

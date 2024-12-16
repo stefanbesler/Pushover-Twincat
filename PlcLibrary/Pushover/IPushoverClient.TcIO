@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="IPushoverClient" Id="{1de1b2e7-821a-4c35-9e95-45170d4d91e5}">
+    <Declaration><![CDATA[INTERFACE IPushoverClient
+]]></Declaration>
+    <Method Name="Clear" Id="{f8d769bc-0485-4d12-99e8-0093ee232421}">
+      <Declaration><![CDATA[/// \copydoc PushoverClient.Pushover#Clear
+METHOD Clear : IPushoverClient]]></Declaration>
+    </Method>
+    <Method Name="EnableHtml" Id="{6327050e-f9e5-4b5b-be12-d03a4472a486}">
+      <Declaration><![CDATA[/// \copydoc PushoverClient.Pushover#EnableHtml
+METHOD EnableHtml : IPushoverClient
+]]></Declaration>
+    </Method>
+    <Method Name="EnableMonospace" Id="{7a3a5331-2be1-41ce-a243-6efb60dac001}">
+      <Declaration><![CDATA[/// \copydoc PushoverClient.Pushover#EnableMonospace
+METHOD EnableMonospace : IPushoverClient
+]]></Declaration>
+    </Method>
+    <Method Name="SendMessageAsync" Id="{a43c981d-98f5-48cd-9610-5e013c2971cd}">
+      <Declaration><![CDATA[/// \copydoc PushoverClient.Pushover#SendMessageAsync
+METHOD SendMessageAsync
+VAR_IN_OUT CONSTANT
+  title : STRING(255);
+  message : STRING(255);
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="WithCallback" Id="{a705da4b-d7a2-4587-b5b0-03876650e79b}">
+      <Declaration><![CDATA[/// \copydoc PushoverClient.Pushover#WithCallback
+METHOD WithCallback : IPushoverClient
+VAR_IN_OUT CONSTANT
+  callback : STRING(255);
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="WithDevice" Id="{1e39f546-bb31-42d1-9cf0-e78e58fdc581}">
+      <Declaration><![CDATA[/// \copydoc PushoverClient.Pushover#WithDevice
+METHOD WithDevice : IPushoverClient
+VAR_IN_OUT CONSTANT
+  device : STRING(80);
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="WithExpire" Id="{eeef378d-2d3a-4f09-8994-9a2adb58a88b}">
+      <Declaration><![CDATA[/// \copydoc PushoverClient.Pushover#WithExpire
+METHOD WithExpire : IPushoverClient
+VAR_INPUT
+  expire : INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="WithPriority" Id="{16481bc8-fc63-4c1c-a4c1-b6a435cd92ba}">
+      <Declaration><![CDATA[/// \copydoc PushoverClient.Pushover#WithPriority
+METHOD WithPriority : IPushoverClient
+VAR_INPUT
+  priority : PushoverPriority;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="WithProxy" Id="{0005b2dd-2a91-4f2b-b1d2-de942a828ef1}">
+      <Declaration><![CDATA[/// \copydoc PushoverClient.Pushover#WithProxy
+METHOD WithProxy : IPushoverClient
+VAR_IN_OUT CONSTANT
+  host : STRING(80);
+END_VAR
+VAR_INPUT
+  port : INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="WithRetry" Id="{3e25cabc-2ea7-42af-930a-9a1e1d333a75}">
+      <Declaration><![CDATA[/// \copydoc PushoverClient.Pushover#WithRetry
+METHOD WithRetry : IPushoverClient
+VAR_INPUT
+  retry : INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="WithSound" Id="{1a16239a-44fd-4959-9987-4d9cbcdb3745}">
+      <Declaration><![CDATA[/// \copydoc PushoverClient.Pushover#WithSound
+METHOD WithSound : IPushoverClient
+VAR_INPUT
+  sound : PushoverSound;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="WithTimestamp" Id="{d84a36b1-b9cb-4a1c-8e4d-615fb900f724}">
+      <Declaration><![CDATA[/// \copydoc PushoverClient.Pushover#WithTimestamp
+METHOD WithTimestamp : IPushoverClient
+VAR_INPUT
+  timestamp : INT; //< UNIX Timestamp in seconds
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="WithTimeToLive" Id="{45053ff4-00b9-4cab-b692-cc7bba5d6db9}">
+      <Declaration><![CDATA[/// \copydoc PushoverClient.Pushover#WithTimeToLive
+METHOD WithTimeToLive : IPushoverClient
+VAR_INPUT
+  ttl : INT; //< Seconds until this message should be automatically removed from the device. Needs to be positive
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="WithUrl" Id="{ad9da46b-6f11-4121-8941-349cd26bfe70}">
+      <Declaration><![CDATA[/// \copydoc PushoverClient.Pushover#WithUrl
+METHOD WithUrl : IPushoverClient
+VAR_IN_OUT CONSTANT
+  url : STRING(255);
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="WithUrlTitle" Id="{cb56259a-2b95-4a0e-b09a-7bd29193e1b2}">
+      <Declaration><![CDATA[/// \copydoc PushoverClient.Pushover#WithUrlTitle
+METHOD WithUrlTitle : IPushoverClient
+VAR_IN_OUT CONSTANT
+  urlTitle : STRING(255);
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

@@ -1,0 +1,427 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PushoverClientTest" Id="{ce000c40-7471-4451-8eae-e9211f8bbc2f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PushoverClientTest EXTENDS PushoverClient IMPLEMENTS Testbench.IUnitTest
+VAR
+  _sampleRequest : PushoverRequest;
+END_VAR
+VAR CONSTANT
+  _testAppToken : STRING := 'APP_TOKEN';
+  _testUserToken : STRING := 'USER_TOKEN';
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{f3ba7d70-eda7-4ab3-82b1-b5f1cb616f20}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+  
+  /// The pushover API token
+  token : STRING;
+  
+  /// The user/group key (not e-mail address) of your user (or you),
+  /// viewable when logged into the [pushover dashboard](https://pushover.net/login)
+  user : STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.FB_init(bInitRetains, bInCopyCode, _testAppToken, _testUserToken);
+
+_sampleRequest.TokenLength := 1;
+_sampleRequest.UserLength := 2;
+_sampleRequest.TitleLength := 3;
+_sampleRequest.MessageLength := 4;
+_sampleRequest.DeviceLength := 5;
+_sampleRequest.UrlLength := 6;
+_sampleRequest.UrlTitleLength := 7;
+_sampleRequest.CallbackLength := 8;
+_sampleRequest.ProxyHostLength := 9;
+  
+_sampleRequest.Token := 'token';
+_sampleRequest.User := 'user';
+_sampleRequest.Retry := 3;
+_sampleRequest.Expire := 5;
+_sampleRequest.MessageType := PushoverMessageType.Html;  
+_sampleRequest.Priority := PushoverPriority.High;
+_sampleRequest.Sound := PushoverSound.Cashregister;
+_sampleRequest.Timestamp := 5;
+_sampleRequest.TimeToLive := 50;
+_sampleRequest.ProxyPort := 8080;
+
+_sampleRequest.Title := 'Title';
+_sampleRequest.Message := 'Message';
+_sampleRequest.Device := 'Device';
+_sampleRequest.Url := 'Url';
+_sampleRequest.UrlTitle := 'UrlTitle';
+_sampleRequest.Callback := 'Callback';
+_sampleRequest.ProxyHost := 'ProxyHost';]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SendMessageAsync" Id="{5973debd-4f44-44b2-96b6-e2df0d639b8e}">
+      <Declaration><![CDATA[METHOD SendMessageAsync
+VAR_IN_OUT CONSTANT
+  title : STRING(255);
+  message : STRING(255);
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Busy
+THEN
+  _request.TitleLength := Tc2_Standard.LEN(title);
+  _request.Title := title;
+  _request.MessageLength := Tc2_Standard.LEN(message);
+  _request.Message := message;
+  
+  _server(WRTRD := FALSE,
+         IDXGRP:=0,
+         BUSY=>,
+         ERR=>,
+         ERRID=>);    
+  Busy := TRUE;
+ELSE
+  Error := TRUE;
+  _errorMessage := 'Client can not executed parallel requests!';
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_Busy" Id="{9ec9fc14-950b-4508-915f-b3101efa23c5}">
+      <Declaration><![CDATA[METHOD Test_Busy
+VAR_INPUT
+  assertions : Testbench.IAssertions;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Error := TRUE;
+
+Busy := TRUE;
+
+assertions.IsFalse(Error, '');
+assertions.IsTrue(Busy, '');
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_Clear" Id="{e1307dde-d449-4bc8-b0ef-b6e4a015dc4e}">
+      <Declaration><![CDATA[METHOD Test_Clear
+VAR_INPUT
+  assertions : Testbench.IAssertions;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request := _sampleRequest;
+
+Clear();
+
+assertions.EqualsString('', _request.Url, 'Url is reset');
+assertions.EqualsString('', _request.UrlTitle, 'UrlTitle is reset');
+assertions.EqualsString('', _request.Message, 'Message is reset');
+assertions.EqualsString('', _request.Title, 'Title is reset');
+assertions.EqualsInt(0, _request.Retry, 'Retry is reset');
+assertions.EqualsString(_testAppToken, Token, 'Token is initialized with APP_TOKEN');
+assertions.EqualsString(_testUserToken, User, 'User is initialized with USER_TOKEN');
+assertions.EqualsString(_defaultHost, Host, 'Host is initialized with the default');
+assertions.EqualsUint(_defaultPort, Port, 'Port is initialized with the default');
+assertions.EqualsInt(PushoverPriority.Normal, _request.Priority, 'The default value of priority is normal');
+assertions.EqualsInt(PushoverSound.Pushover, _request.Sound, 'The default sund is pushover');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_Defaults" Id="{70e5209e-f517-4322-b13c-cbe70af07625}">
+      <Declaration><![CDATA[METHOD Test_Defaults
+VAR_INPUT
+  assertions : Testbench.IAssertions;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[assertions.EqualsString(_testAppToken, Token, 'Token is initialized with APP_TOKEN');
+assertions.EqualsString(_testUserToken, User, 'User is initialized with USER_TOKEN');
+assertions.EqualsString(_defaultHost, Host, 'Host is initialized with the default');
+assertions.EqualsUint(_defaultPort, Port, 'Port is initialized with the default');
+assertions.IsFalse(Busy, 'Object is not busy');
+assertions.IsFalse(Error, 'Object has not error');
+assertions.EqualsInt(PushoverPriority.Normal, _request.Priority, 'The default value of priority is normal');
+assertions.EqualsInt(PushoverSound.Pushover, _request.Sound, 'The default sund is pushover');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_EnableHtml" Id="{4bb03722-bd04-4dd1-a249-829512030b1e}">
+      <Declaration><![CDATA[METHOD Test_EnableHtml
+VAR_INPUT
+  assertions : Testbench.IAssertions;
+END_VAR
+VAR_INST
+  self : IPushoverClient := THIS^;
+  intrf : IPushoverClient;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request := _sampleRequest;
+
+intrf := EnableHtml();
+
+assertions.EqualsInt(PushoverMessageType.Html, _request.MessageType, '');
+assertions.IsTrue(self = intrf, '');
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_EnableMonospace" Id="{c4ba0297-2de8-4409-88be-d0f058dbe46a}">
+      <Declaration><![CDATA[METHOD Test_EnableMonospace
+VAR_INPUT
+  assertions : Testbench.IAssertions;
+END_VAR
+VAR_INST
+  self : IPushoverClient := THIS^;
+  intrf : IPushoverClient;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request := _sampleRequest;
+
+intrf := EnableMonospace();
+
+assertions.EqualsInt(PushoverMessageType.Monospace, _request.MessageType, '');
+assertions.IsTrue(self = intrf, '');
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_Error" Id="{641d30ce-69a2-4460-9678-7332cedb1ada}">
+      <Declaration><![CDATA[METHOD Test_Error
+VAR_INPUT
+  assertions : Testbench.IAssertions;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Busy := TRUE;
+
+Error := TRUE;
+
+assertions.IsFalse(Busy, '');
+assertions.IsTrue(Error, '');
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_WithCallback" Id="{2dd02e44-f2e8-45ee-b1b1-93391598f22a}">
+      <Declaration><![CDATA[METHOD Test_WithCallback
+VAR_INPUT
+  assertions : Testbench.IAssertions;
+END_VAR
+VAR_INST
+  self : IPushoverClient := THIS^;
+  intrf : IPushoverClient;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request := _sampleRequest;
+
+intrf := WithCallback('xyz');
+
+assertions.EqualsInt(3, _request.CallbackLength, '');
+assertions.EqualsString('xyz', _request.Callback, '');
+assertions.IsTrue(self = intrf, '');
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_WithDevice" Id="{3ce9a18a-8778-4a41-b217-a53812e241b2}">
+      <Declaration><![CDATA[METHOD Test_WithDevice
+VAR_INPUT
+  assertions : Testbench.IAssertions;
+END_VAR
+VAR_INST
+  self : IPushoverClient := THIS^;
+  intrf : IPushoverClient;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request := _sampleRequest;
+
+intrf := WithDevice('xyz');
+
+assertions.EqualsInt(3, _request.DeviceLength, '');
+assertions.EqualsString('xyz', _request.Device, '');
+assertions.IsTrue(self = intrf, '');
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_WithExpire" Id="{72fd6807-1698-4203-8475-08087f579f76}">
+      <Declaration><![CDATA[METHOD Test_WithExpire
+VAR_INPUT
+  assertions : Testbench.IAssertions;
+END_VAR
+VAR_INST
+  self : IPushoverClient := THIS^;
+  intrf : IPushoverClient;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request := _sampleRequest;
+
+intrf := WithExpire(115);
+
+assertions.EqualsInt(115, _request.Expire, '');
+assertions.IsTrue(self = intrf, '');
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_WithPriority" Id="{a5b23c4b-4f6b-4f67-ac90-e3e7bc393504}">
+      <Declaration><![CDATA[METHOD Test_WithPriority
+VAR_INPUT
+  assertions : Testbench.IAssertions;
+END_VAR
+VAR_INST
+  self : IPushoverClient := THIS^;
+  intrf : IPushoverClient;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request := _sampleRequest;
+
+intrf := WithPriority(PushoverPriority.Lowest);
+
+assertions.EqualsInt(PushoverPriority.Lowest, _request.Priority, '');
+assertions.IsTrue(self = intrf, '');
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_WithProxy" Id="{04555dfc-2a7e-4fbd-b1e2-67cd47418534}">
+      <Declaration><![CDATA[METHOD Test_WithProxy
+VAR_INPUT
+  assertions : Testbench.IAssertions;
+END_VAR
+VAR_INST
+  self : IPushoverClient := THIS^;
+  intrf : IPushoverClient;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request := _sampleRequest;
+
+intrf := WithProxy('xyz', 8989);
+
+assertions.EqualsInt(8989, _request.ProxyPort, '');
+assertions.EqualsInt(3, _request.ProxyHostLength, '');
+assertions.EqualsString('xyz', _request.ProxyHost, '');
+assertions.IsTrue(self = intrf, '');
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_WithRetry" Id="{3b6658f8-6465-4266-bffb-8f8be7b3115b}">
+      <Declaration><![CDATA[METHOD Test_WithRetry
+VAR_INPUT
+  assertions : Testbench.IAssertions;
+END_VAR
+VAR_INST
+  self : IPushoverClient := THIS^;
+  intrf : IPushoverClient;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request := _sampleRequest;
+
+intrf := WithRetry(115);
+
+assertions.EqualsInt(115, _request.Retry, '');
+assertions.IsTrue(self = intrf, '');
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_WithSound" Id="{8f016133-4050-4c2c-9bcf-87ee7f3b7c18}">
+      <Declaration><![CDATA[METHOD Test_WithSound
+VAR_INPUT
+  assertions : Testbench.IAssertions;
+END_VAR
+VAR_INST
+  self : IPushoverClient := THIS^;
+  intrf : IPushoverClient;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request := _sampleRequest;
+
+intrf := WithSound(PushoverSound.Cosmic);
+
+assertions.EqualsInt(PushoverSound.Cosmic, _request.Sound, '');
+assertions.IsTrue(self = intrf, '');
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_WithTimestamp" Id="{2c877b8b-140e-4ff6-a344-cf98110b440f}">
+      <Declaration><![CDATA[METHOD Test_WithTimestamp
+VAR_INPUT
+  assertions : Testbench.IAssertions;
+END_VAR
+VAR_INST
+  self : IPushoverClient := THIS^;
+  intrf : IPushoverClient;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request := _sampleRequest;
+
+intrf := WithTimestamp(115);
+
+assertions.EqualsInt(115, _request.Timestamp, '');
+assertions.IsTrue(self = intrf, '');
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_WithTimeToLive" Id="{9c452977-fda0-41fb-90ae-00297073c09e}">
+      <Declaration><![CDATA[METHOD Test_WithTimeToLive
+VAR_INPUT
+  assertions : Testbench.IAssertions;
+END_VAR
+VAR_INST
+  self : IPushoverClient := THIS^;
+  intrf : IPushoverClient;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request := _sampleRequest;
+
+intrf := WithTimestamp(115);
+
+assertions.EqualsInt(115, _request.TimeToLive, '');
+assertions.IsTrue(self = intrf, '');
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_WithUrl" Id="{041d0bec-3222-458e-b33d-33d30fe77c10}">
+      <Declaration><![CDATA[METHOD Test_WithUrl
+VAR_INPUT
+  assertions : Testbench.IAssertions;
+END_VAR
+VAR_INST
+  self : IPushoverClient := THIS^;
+  intrf : IPushoverClient;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request := _sampleRequest;
+
+intrf := WithUrl('xyz');
+
+assertions.EqualsInt(3, _request.UrlLength, '');
+assertions.EqualsString('xyz', _request.Url, '');
+assertions.IsTrue(self = intrf, '');
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_WithUrlTitle" Id="{9a2c8bec-8107-49cb-a784-6af0c7d57ca6}">
+      <Declaration><![CDATA[METHOD Test_WithUrlTitle
+VAR_INPUT
+  assertions : Testbench.IAssertions;
+END_VAR
+VAR_INST
+  self : IPushoverClient := THIS^;
+  intrf : IPushoverClient;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_request := _sampleRequest;
+
+intrf := WithUrl('xyz');
+
+assertions.EqualsInt(3, _request.UrlTitleLength, '');
+assertions.EqualsString('xyz', _request.UrlTitle, '');
+assertions.IsTrue(self = intrf, '');
+
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -3,47 +3,23 @@
   <POU Name="MAIN" Id="{b0184268-90e5-4fb6-9d9f-adf5f043070f}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-  _step : INT;
-  _pushoverClient : Pushover.PushoverClient('<your_api_token>', '<your_user_token>'); 
-  _send : BOOL;
+  _send : BOOL;  
+  _pushoverClient : Pushover.PushoverClient('<your_app_token>', '<your_user_token>'); 
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
-
-IF _send
+      <ST><![CDATA[IF _send
 THEN
   _send := FALSE;
-  _step := 10;
+  _pushoverClient
+    .WithPriority(Pushover.PushoverPriority.High)
+    .WithSound(Pushover.PushoverSound.Alien)
+    .WithUrl('https://github.com/stefanbesler/Pushover-Twincat')
+    .WithUrlTitle('Pushover-Twinpack Github')
+    .SendMessageAsync('PLC1', 'Hello World!');
 END_IF
 
-CASE _step
-OF
-  0:
-    //_pushover.Host := '192.168.1.100'; // specify host if local Pushover ADS Server is running on a different host
-    //_pushover.Port := 80080; // specify port if local Pushover ADS Server is running on a non-default port
-    
-  10:
-    _pushoverClient.SendMessageAsync('PLC1', 'Hello World!');
-    _step := 20;
-    
-  20:
-    _pushoverClient.Cyclic();
-  
-    IF _pushoverClient.Error
-    THEN
-      _step := 99;
-    ELSIF NOT _pushoverClient.Busy
-    THEN
-      _step := 30;
-		END_IF
-    
-  30: // Success
-    ;
-    
-  99: // Error
-    ;
-END_CASE]]></ST>
+_pushoverClient.Cyclic();]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
