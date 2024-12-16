@@ -7,7 +7,7 @@
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
     <WriteProductVersion>true</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
-    <Name>Untitled1</Name>
+    <Name>Pushover</Name>
     <ProgramVersion>3.1.4023.0</ProgramVersion>
     <Application>{c3b815b9-ed00-4058-b235-f49b6e8c03be}</Application>
     <TypeSystem>{0a6442eb-0374-4bdb-902d-ebdf84d42014}</TypeSystem>
@@ -44,6 +44,7 @@
     </Compile>
     <Compile Include="_Tests\PushoverClientTest.TcPOU">
       <SubType>Code</SubType>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -62,14 +63,19 @@
     <PlaceholderReference Include="Testbench">
       <DefaultResolution>Testbench, * (Zeugwerk GmbH)</DefaultResolution>
       <Namespace>Testbench</Namespace>
-      <Optional>true</Optional>
-      <QualifiedOnly>true</QualifiedOnly>
       <HideWhenReferencedAsDependency>true</HideWhenReferencedAsDependency>
+      <QualifiedOnly>true</QualifiedOnly>
+      <Optional>true</Optional>
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="_Tests" />
     <Folder Include="_DataTypes" />
+  </ItemGroup>
+  <ItemGroup>
+    <PlaceholderResolution Include="Testbench">
+      <Resolution>Testbench, * (Zeugwerk GmbH)</Resolution>
+    </PlaceholderResolution>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>
