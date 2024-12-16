@@ -46,7 +46,7 @@
           "type": "Application",
           "packages": [
             {
-              "version": null,
+              "version": "1.1.0.0",
               "name": "Pushover",
               "branch": "main",
               "target": "TC3.1",
