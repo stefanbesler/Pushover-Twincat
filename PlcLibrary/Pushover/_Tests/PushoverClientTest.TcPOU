@@ -109,6 +109,8 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[_request := _sampleRequest;
+_request.Token := _testAppToken;
+_request.User := _testUserToken;
 
 Clear();
 
@@ -373,7 +375,7 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[_request := _sampleRequest;
 
-intrf := WithTimestamp(115);
+intrf := WithTimeToLive(115);
 
 assertions.EqualsInt(115, _request.TimeToLive, '');
 assertions.IsTrue(self = intrf, '');
@@ -414,7 +416,7 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[_request := _sampleRequest;
 
-intrf := WithUrl('xyz');
+intrf := WithUrlTitle('xyz');
 
 assertions.EqualsInt(3, _request.UrlTitleLength, '');
 assertions.EqualsString('xyz', _request.UrlTitle, '');
