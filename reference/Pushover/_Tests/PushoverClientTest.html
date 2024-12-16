@@ -1,0 +1,334 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>PushoverClientTest | Struckig </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="PushoverClientTest | Struckig ">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/stefanbesler/Pushover-Twincat/blob/c69f7760546d86e920fd0b2583000e601da8b832/docs/reference/Pushover/_Tests/PushoverClientTest.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../../../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Pushover.PushoverClientTest">
+<h1 id="pushoverclienttest">PushoverClientTest</h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="PushoverClientTest.html">Pushover</a></dd></dl>
+  
+  </div>
+<dl class="typelist inheritance"><dt>Inheritance</dt><dd>
+<div><a class="xref" href="../PushoverClient.html">Pushover.PushoverClient</a></div>
+<div><a class="xref" href="PushoverClientTest.html">PushoverClientTest</a></div>
+</dd></dl>
+<dl class="typelist implements"><dt>Inherited Properties</dt><dd>
+<div><a class="xref" href="../PushoverClient.html#Busy">Busy</a></div>
+<div><a class="xref" href="../PushoverClient.html#Error">Error</a></div>
+<div><a class="xref" href="../PushoverClient.html#ErrorMessage">ErrorMessage</a></div>
+<div><a class="xref" href="../PushoverClient.html#Host">Host</a></div>
+</dd></dl>
+<dl class="typelist implements"><dt>Inherited Methods</dt><dd>
+<div><a class="xref" href="../PushoverClient.html#Clear">Clear</a></div>
+<div><a class="xref" href="../PushoverClient.html#Cyclic">Cyclic</a></div>
+<div><a class="xref" href="../PushoverClient.html#EnableHtml">EnableHtml</a></div>
+<div><a class="xref" href="../PushoverClient.html#EnableMonospace">EnableMonospace</a></div>
+<div><a class="xref" href="../PushoverClient.html#WithCallback">WithCallback</a></div>
+<div><a class="xref" href="../PushoverClient.html#WithDevice">WithDevice</a></div>
+<div><a class="xref" href="../PushoverClient.html#WithExpire">WithExpire</a></div>
+<div><a class="xref" href="../PushoverClient.html#WithPriority">WithPriority</a></div>
+<div><a class="xref" href="../PushoverClient.html#WithProxy">WithProxy</a></div>
+<div><a class="xref" href="../PushoverClient.html#WithRetry">WithRetry</a></div>
+<div><a class="xref" href="../PushoverClient.html#WithSound">WithSound</a></div>
+<div><a class="xref" href="../PushoverClient.html#WithTimestamp">WithTimestamp</a></div>
+<div><a class="xref" href="../PushoverClient.html#WithTimeToLive">WithTimeToLive</a></div>
+<div><a class="xref" href="../PushoverClient.html#WithUrl">WithUrl</a></div>
+<div><a class="xref" href="../PushoverClient.html#WithUrlTitle">WithUrlTitle</a></div>
+</dd></dl>
+<dl class="typelist implements"><dt>Implements</dt><dd>
+<div>Testbench.IUnitTest</div>
+<div><a class="xref" href="../IPushoverClient.html">IPushoverClient</a></div>
+</dd></dl>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">FUNCTION_BLOCK PushoverClientTest EXTENDS Pushover.PushoverClient IMPLEMENTS Testbench.IUnitTest, Pushover.IPushoverClient
+</code></pre></div>
+<h2 class="section" id="constructors">Constructor</h2>
+<h3 id="Pushover.PushoverClientTest_FB_init" data-uid="Pushover.PushoverClientTest.FB_init">
+FB_init
+</h3><a name="FB_init"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">METHOD FB_init (
+ bInitRetains : BOOL,
+ bInCopyCode : BOOL,
+ token : STRING,
+ user : STRING) : BOOL
+</code></pre></div>
+<h4 class="section">Inputs</h4><dl class="parameters">
+<a name="bInitRetains"></a><dt><code>bInitRetains</code> BOOL<dd><p></p></dd><a name="bInCopyCode"></a><dt><code>bInCopyCode</code> BOOL<dd><p></p></dd><a name="token"></a><dt><code>token</code> STRING<dd><p><p>The pushover API token</p>
+</dd><a name="user"></a><dt><code>user</code> STRING<dd><p><p>The user/group key (not e-mail address) of your user (or you),
+viewable when logged into the <a href="https://pushover.net/login">pushover dashboard</a></p>
+</dd></dl>
+<h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt>BOOL</dt>
+    <dd></dd>
+  </dl>
+<h2 class="section" id="methods">Methods</h2>
+<h3 id="Pushover.PushoverClientTest_SendMessageAsync" data-uid="Pushover.PushoverClientTest.SendMessageAsync">
+SendMessageAsync
+</h3><a name="SendMessageAsync"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">METHOD SendMessageAsync (
+ title : STRING(255),
+ message : STRING(255))
+</code></pre></div>
+<h4 class="section">Inouts</h4><dl class="parameters">
+<a name="title"></a><dt><code>title</code> STRING(255)<dd><p></p></dd><a name="message"></a><dt><code>message</code> STRING(255)<dd><p></p></dd></dl>
+<h3 id="Pushover.PushoverClientTest_Test_Busy" data-uid="Pushover.PushoverClientTest.Test_Busy">
+Test_Busy
+</h3><a name="Test_Busy"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">METHOD Test_Busy (
+ assertions : Testbench.IAssertions)
+</code></pre></div>
+<h4 class="section">Inputs</h4><dl class="parameters">
+<a name="assertions"></a><dt><code>assertions</code> Testbench.IAssertions<dd><p></p></dd></dl>
+<h3 id="Pushover.PushoverClientTest_Test_Clear" data-uid="Pushover.PushoverClientTest.Test_Clear">
+Test_Clear
+</h3><a name="Test_Clear"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">METHOD Test_Clear (
+ assertions : Testbench.IAssertions)
+</code></pre></div>
+<h4 class="section">Inputs</h4><dl class="parameters">
+<a name="assertions"></a><dt><code>assertions</code> Testbench.IAssertions<dd><p></p></dd></dl>
+<h3 id="Pushover.PushoverClientTest_Test_Defaults" data-uid="Pushover.PushoverClientTest.Test_Defaults">
+Test_Defaults
+</h3><a name="Test_Defaults"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">METHOD Test_Defaults (
+ assertions : Testbench.IAssertions)
+</code></pre></div>
+<h4 class="section">Inputs</h4><dl class="parameters">
+<a name="assertions"></a><dt><code>assertions</code> Testbench.IAssertions<dd><p></p></dd></dl>
+<h3 id="Pushover.PushoverClientTest_Test_EnableHtml" data-uid="Pushover.PushoverClientTest.Test_EnableHtml">
+Test_EnableHtml
+</h3><a name="Test_EnableHtml"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">METHOD Test_EnableHtml (
+ assertions : Testbench.IAssertions)
+</code></pre></div>
+<h4 class="section">Inputs</h4><dl class="parameters">
+<a name="assertions"></a><dt><code>assertions</code> Testbench.IAssertions<dd><p></p></dd></dl>
+<h3 id="Pushover.PushoverClientTest_Test_EnableMonospace" data-uid="Pushover.PushoverClientTest.Test_EnableMonospace">
+Test_EnableMonospace
+</h3><a name="Test_EnableMonospace"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">METHOD Test_EnableMonospace (
+ assertions : Testbench.IAssertions)
+</code></pre></div>
+<h4 class="section">Inputs</h4><dl class="parameters">
+<a name="assertions"></a><dt><code>assertions</code> Testbench.IAssertions<dd><p></p></dd></dl>
+<h3 id="Pushover.PushoverClientTest_Test_Error" data-uid="Pushover.PushoverClientTest.Test_Error">
+Test_Error
+</h3><a name="Test_Error"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">METHOD Test_Error (
+ assertions : Testbench.IAssertions)
+</code></pre></div>
+<h4 class="section">Inputs</h4><dl class="parameters">
+<a name="assertions"></a><dt><code>assertions</code> Testbench.IAssertions<dd><p></p></dd></dl>
+<h3 id="Pushover.PushoverClientTest_Test_WithCallback" data-uid="Pushover.PushoverClientTest.Test_WithCallback">
+Test_WithCallback
+</h3><a name="Test_WithCallback"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">METHOD Test_WithCallback (
+ assertions : Testbench.IAssertions)
+</code></pre></div>
+<h4 class="section">Inputs</h4><dl class="parameters">
+<a name="assertions"></a><dt><code>assertions</code> Testbench.IAssertions<dd><p></p></dd></dl>
+<h3 id="Pushover.PushoverClientTest_Test_WithDevice" data-uid="Pushover.PushoverClientTest.Test_WithDevice">
+Test_WithDevice
+</h3><a name="Test_WithDevice"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">METHOD Test_WithDevice (
+ assertions : Testbench.IAssertions)
+</code></pre></div>
+<h4 class="section">Inputs</h4><dl class="parameters">
+<a name="assertions"></a><dt><code>assertions</code> Testbench.IAssertions<dd><p></p></dd></dl>
+<h3 id="Pushover.PushoverClientTest_Test_WithExpire" data-uid="Pushover.PushoverClientTest.Test_WithExpire">
+Test_WithExpire
+</h3><a name="Test_WithExpire"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">METHOD Test_WithExpire (
+ assertions : Testbench.IAssertions)
+</code></pre></div>
+<h4 class="section">Inputs</h4><dl class="parameters">
+<a name="assertions"></a><dt><code>assertions</code> Testbench.IAssertions<dd><p></p></dd></dl>
+<h3 id="Pushover.PushoverClientTest_Test_WithPriority" data-uid="Pushover.PushoverClientTest.Test_WithPriority">
+Test_WithPriority
+</h3><a name="Test_WithPriority"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">METHOD Test_WithPriority (
+ assertions : Testbench.IAssertions)
+</code></pre></div>
+<h4 class="section">Inputs</h4><dl class="parameters">
+<a name="assertions"></a><dt><code>assertions</code> Testbench.IAssertions<dd><p></p></dd></dl>
+<h3 id="Pushover.PushoverClientTest_Test_WithProxy" data-uid="Pushover.PushoverClientTest.Test_WithProxy">
+Test_WithProxy
+</h3><a name="Test_WithProxy"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">METHOD Test_WithProxy (
+ assertions : Testbench.IAssertions)
+</code></pre></div>
+<h4 class="section">Inputs</h4><dl class="parameters">
+<a name="assertions"></a><dt><code>assertions</code> Testbench.IAssertions<dd><p></p></dd></dl>
+<h3 id="Pushover.PushoverClientTest_Test_WithRetry" data-uid="Pushover.PushoverClientTest.Test_WithRetry">
+Test_WithRetry
+</h3><a name="Test_WithRetry"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">METHOD Test_WithRetry (
+ assertions : Testbench.IAssertions)
+</code></pre></div>
+<h4 class="section">Inputs</h4><dl class="parameters">
+<a name="assertions"></a><dt><code>assertions</code> Testbench.IAssertions<dd><p></p></dd></dl>
+<h3 id="Pushover.PushoverClientTest_Test_WithSound" data-uid="Pushover.PushoverClientTest.Test_WithSound">
+Test_WithSound
+</h3><a name="Test_WithSound"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">METHOD Test_WithSound (
+ assertions : Testbench.IAssertions)
+</code></pre></div>
+<h4 class="section">Inputs</h4><dl class="parameters">
+<a name="assertions"></a><dt><code>assertions</code> Testbench.IAssertions<dd><p></p></dd></dl>
+<h3 id="Pushover.PushoverClientTest_Test_WithTimestamp" data-uid="Pushover.PushoverClientTest.Test_WithTimestamp">
+Test_WithTimestamp
+</h3><a name="Test_WithTimestamp"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">METHOD Test_WithTimestamp (
+ assertions : Testbench.IAssertions)
+</code></pre></div>
+<h4 class="section">Inputs</h4><dl class="parameters">
+<a name="assertions"></a><dt><code>assertions</code> Testbench.IAssertions<dd><p></p></dd></dl>
+<h3 id="Pushover.PushoverClientTest_Test_WithTimeToLive" data-uid="Pushover.PushoverClientTest.Test_WithTimeToLive">
+Test_WithTimeToLive
+</h3><a name="Test_WithTimeToLive"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">METHOD Test_WithTimeToLive (
+ assertions : Testbench.IAssertions)
+</code></pre></div>
+<h4 class="section">Inputs</h4><dl class="parameters">
+<a name="assertions"></a><dt><code>assertions</code> Testbench.IAssertions<dd><p></p></dd></dl>
+<h3 id="Pushover.PushoverClientTest_Test_WithUrl" data-uid="Pushover.PushoverClientTest.Test_WithUrl">
+Test_WithUrl
+</h3><a name="Test_WithUrl"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">METHOD Test_WithUrl (
+ assertions : Testbench.IAssertions)
+</code></pre></div>
+<h4 class="section">Inputs</h4><dl class="parameters">
+<a name="assertions"></a><dt><code>assertions</code> Testbench.IAssertions<dd><p></p></dd></dl>
+<h3 id="Pushover.PushoverClientTest_Test_WithUrlTitle" data-uid="Pushover.PushoverClientTest.Test_WithUrlTitle">
+Test_WithUrlTitle
+</h3><a name="Test_WithUrlTitle"></a>
+<div class="codewrapper">
+    <pre><code class="lang-st hljs">METHOD Test_WithUrlTitle (
+ assertions : Testbench.IAssertions)
+</code></pre></div>
+<h4 class="section">Inputs</h4><dl class="parameters">
+<a name="assertions"></a><dt><code>assertions</code> Testbench.IAssertions<dd><p></p></dd></dl>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/stefanbesler/Pushover-Twincat/blob/c69f7760546d86e920fd0b2583000e601da8b832/docs/reference/Pushover/_Tests/PushoverClientTest.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Documentation powered by <a href="https://github.com/Zeugwerk/zkdoc-action">zkdoc</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

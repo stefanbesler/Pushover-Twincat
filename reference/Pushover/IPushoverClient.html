@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>PushoverClient | Struckig </title>
+      <title>IPushoverClient | Struckig </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="PushoverClient | Struckig ">
+      <meta name="title" content="IPushoverClient | Struckig ">
       
       
       <link rel="icon" href="../../favicon.ico">
@@ -16,7 +16,7 @@
       
       
       
-      <meta name="docfx:docurl" content="https://github.com/stefanbesler/Pushover-Twincat/blob/c69f7760546d86e920fd0b2583000e601da8b832/docs/reference/Pushover/PushoverClient.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/stefanbesler/Pushover-Twincat/blob/c69f7760546d86e920fd0b2583000e601da8b832/docs/reference/Pushover/IPushoverClient.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -80,159 +80,21 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Pushover.PushoverClient">
-<h1 id="pushoverclient">PushoverClient</h1>
+        <article data-uid="Pushover.IPushoverClient">
+<h1 id="Pushover_IPushoverClient" data-uid="Pushover.IPushoverClient" class="text-break">IPushoverClient</h1>
 
-  <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="PushoverClient.html">Pushover</a></dd></dl>
+<div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="IPushoverClient.html">Pushover</a></dd></dl>
   
   </div>
-<dl class="typelist implements"><dt>Implements</dt><dd>
-<div><a class="xref" href="IPushoverClient.html">IPushoverClient</a></div>
-</dd></dl>
-<p>This the main class of the library. It represents a Pushover app and
-is tied to a unique API token. When constructing the object it is mandatory to pass
-an <code>app-token</code> as well as a <code>user-token</code>.</p>
-<p>Here's a simple example, which sends a pushover notification to a specific device of the user.
-Note that this class uses a fluent API to configure the properties of a notification.
-The actual action of sending the notification is triggered by <a class="xref" href="PushoverClient.html#SendMessageAsync">SendMessageAsync</a>.
-The ´Async´ Suffix in this method indicates that this action has to be waited for by checking for ´NOT _pushoverClient.Busy´ before
-sending another notification.</p>
-<pre><code class="lang-sti">PROGRAM MAIN
-VAR
-  _send : BOOL; // boolean, which can be triggered to send a message
-  _pushoverClient : Pushover.PushoverClient('&lt;your_pushover_apptoken&gt;', '&lt;your_pushover_user&gt;');
-END_VAR
-</code></pre>
-<pre><code class="lang-std">IF _send
-THEN
-  _send := FALSE;
-  _pushoverClient
-    .SendMessageAsync('Hello World!');
-END_IF
-
-_pushoverClient.Cyclic();
-</code></pre>
 <div class="codewrapper">
-    <pre><code class="lang-st hljs">{attribute 'conditionalshow_all_locals'}
-{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods and/or properties'}
-{attribute 'hide_all_locals'}
-FUNCTION_BLOCK PushoverClient IMPLEMENTS Pushover.IPushoverClient
+    <pre><code class="lang-st hljs">INTERFACE IPushoverClient
 </code></pre></div>
-<h2 class="section" id="constructors">Constructor</h2>
-<h3 id="Pushover.PushoverClient_FB_init" data-uid="Pushover.PushoverClient.FB_init">
-FB_init
-</h3><a name="FB_init"></a>
-<div class="codewrapper">
-    <pre><code class="lang-st hljs">METHOD FB_init (
- bInitRetains : BOOL,
- bInCopyCode : BOOL,
- token : STRING,
- user : STRING) : BOOL
-</code></pre></div>
-<h4 class="section">Inputs</h4><dl class="parameters">
-<a name="bInitRetains"></a><dt><code>bInitRetains</code> BOOL<dd><p></p></dd><a name="bInCopyCode"></a><dt><code>bInCopyCode</code> BOOL<dd><p></p></dd><a name="token"></a><dt><code>token</code> STRING<dd><p><p>The pushover API token</p>
-</dd><a name="user"></a><dt><code>user</code> STRING<dd><p><p>The user/group key (not e-mail address) of your user (or you),
-viewable when logged into the <a href="https://pushover.net/login">pushover dashboard</a></p>
-</dd></dl>
-<h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt>BOOL</dt>
-    <dd></dd>
-  </dl>
-<h2 class="section" id="properties">Properties</h2>
-<h3 id="Pushover_PushoverClient_Busy" data-uid="Pushover.PushoverClient.Busy">
-Busy
-</h3><a name="Busy"></a>
-<p>This property can be used to check if the client is ready for sending a notification. If the client is not
-ready or an error occurs during sending (e.g. not internet connection, Pushover Twincat Service is not running, ...)
-the property <a class="xref" href="PushoverClient.html#Error">Error</a> returns <code>true</code>.</p>
-<div class="codewrapper">
-    <pre><code class="lang-st hljs">{attribute 'monitoring' := 'call'}
-PROPERTY Busy : BOOL
-</code></pre></div>
-<h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt>BOOL</dt>
-    <dd></dd>
-  </dl>
-<h3 id="Pushover_PushoverClient_Error" data-uid="Pushover.PushoverClient.Error">
-Error
-</h3><a name="Error"></a>
-<p>Returns <code>true</code> if any error occured when calling an <code>XXX_Async</code> method of this object. The details of the error
-are available by checking the proeprty</p>
-<div class="codewrapper">
-    <pre><code class="lang-st hljs">{attribute 'monitoring' := 'call'}
-PROPERTY Error : BOOL
-</code></pre></div>
-<h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt>BOOL</dt>
-    <dd></dd>
-  </dl>
-<h3 id="Pushover_PushoverClient_ErrorMessage" data-uid="Pushover.PushoverClient.ErrorMessage">
-ErrorMessage
-</h3><a name="ErrorMessage"></a>
-<p>Only valid if <code>Error=TRUE</code>, returns the explanation why the call of an <code>XXX_Async</code> method failed.</p>
-<div class="codewrapper">
-    <pre><code class="lang-st hljs">{attribute 'monitoring' := 'call'}
-PROPERTY ErrorMessage : STRING(255)
-</code></pre></div>
-<h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt>STRING(255)</dt>
-    <dd></dd>
-  </dl>
-<h3 id="Pushover_PushoverClient_Host" data-uid="Pushover.PushoverClient.Host">
-Host
-</h3><a name="Host"></a>
-<p>Returns the AMS Net Id of the <code>Pushover Twincat Service</code>. Defauls to localhost</p>
-<div class="codewrapper">
-    <pre><code class="lang-st hljs">PROPERTY Host : STRING
-</code></pre></div>
-<h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt>STRING</dt>
-    <dd></dd>
-  </dl>
-<h3 id="Pushover_PushoverClient_Port" data-uid="Pushover.PushoverClient.Port">
-Port
-</h3><a name="Port"></a>
-<div class="codewrapper">
-    <pre><code class="lang-st hljs">PROPERTY Port : UINT
-</code></pre></div>
-<h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt>UINT</dt>
-    <dd></dd>
-  </dl>
-<h3 id="Pushover_PushoverClient_Token" data-uid="Pushover.PushoverClient.Token">
-Token
-</h3><a name="Token"></a>
-<div class="codewrapper">
-    <pre><code class="lang-st hljs">PROPERTY Token : STRING
-</code></pre></div>
-<h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt>STRING</dt>
-    <dd></dd>
-  </dl>
-<h3 id="Pushover_PushoverClient_User" data-uid="Pushover.PushoverClient.User">
-User
-</h3><a name="User"></a>
-<div class="codewrapper">
-    <pre><code class="lang-st hljs">PROPERTY User : STRING
-</code></pre></div>
-<h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt>STRING</dt>
-    <dd></dd>
-  </dl>
 <h2 class="section" id="methods">Methods</h2>
-<h3 id="Pushover.PushoverClient_Clear" data-uid="Pushover.PushoverClient.Clear">
+<h3 id="Pushover.IPushoverClient_Clear" data-uid="Pushover.IPushoverClient.Clear">
 Clear
 </h3><a name="Clear"></a>
-<p>Resets all <code>WithXXX</code> statements to their default values.</p>
+<p>[copydoc PushoverClient.Pushover#Clear error]</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD Clear () : IPushoverClient
 </code></pre></div>
@@ -241,21 +103,10 @@ Clear
     <dt> <a class="xref" href="IPushoverClient.html">IPushoverClient</a></dt>
     <dd></dd>
   </dl>
-<h3 id="Pushover.PushoverClient_Cyclic" data-uid="Pushover.PushoverClient.Cyclic">
-Cyclic
-</h3><a name="Cyclic"></a>
-<p>This method has to be called cyclically and takes care of the communication with the <code>Pushover Twincat Service</code>, which is reached
-via <a class="xref" href="PushoverClient.html#Host">Host</a> and <a class="xref" href="PushoverClient.html#Port">Port</a>.
-You can use the properties <a class="xref" href="PushoverClient.html#Busy">Busy</a> and <a class="xref" href="PushoverClient.html#Error">Error</a> to check weather an
-operation was successful (<code>NOT Busy AND NOT Error</code>) or failed (<code>Error</code>), respectively.</p>
-<div class="codewrapper">
-    <pre><code class="lang-st hljs">METHOD Cyclic ()
-</code></pre></div>
-<h3 id="Pushover.PushoverClient_EnableHtml" data-uid="Pushover.PushoverClient.EnableHtml">
+<h3 id="Pushover.IPushoverClient_EnableHtml" data-uid="Pushover.IPushoverClient.EnableHtml">
 EnableHtml
 </h3><a name="EnableHtml"></a>
-<p>Enables Monospace in the pushover message
-Either <a class="xref" href="PushoverClient.html#EnableHtml">HTML</a> or <a class="xref" href="PushoverClient.html#EnableMonspace">Monospace</a> can be enabled</p>
+<p>[copydoc PushoverClient.Pushover#EnableHtml error]</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD EnableHtml () : IPushoverClient
 </code></pre></div>
@@ -264,11 +115,10 @@ Either <a class="xref" href="PushoverClient.html#EnableHtml">HTML</a> or <a clas
     <dt> <a class="xref" href="IPushoverClient.html">IPushoverClient</a></dt>
     <dd></dd>
   </dl>
-<h3 id="Pushover.PushoverClient_EnableMonospace" data-uid="Pushover.PushoverClient.EnableMonospace">
+<h3 id="Pushover.IPushoverClient_EnableMonospace" data-uid="Pushover.IPushoverClient.EnableMonospace">
 EnableMonospace
 </h3><a name="EnableMonospace"></a>
-<p>Enables HTML in the pushover message
-Either <a class="xref" href="PushoverClient.html#EnableHtml">HTML</a> or <a class="xref" href="PushoverClient.html#EnableMonspace">Monospace</a> can be enabled</p>
+<p>[copydoc PushoverClient.Pushover#EnableMonospace error]</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD EnableMonospace () : IPushoverClient
 </code></pre></div>
@@ -277,9 +127,10 @@ Either <a class="xref" href="PushoverClient.html#EnableHtml">HTML</a> or <a clas
     <dt> <a class="xref" href="IPushoverClient.html">IPushoverClient</a></dt>
     <dd></dd>
   </dl>
-<h3 id="Pushover.PushoverClient_SendMessageAsync" data-uid="Pushover.PushoverClient.SendMessageAsync">
+<h3 id="Pushover.IPushoverClient_SendMessageAsync" data-uid="Pushover.IPushoverClient.SendMessageAsync">
 SendMessageAsync
 </h3><a name="SendMessageAsync"></a>
+<p>[copydoc PushoverClient.Pushover#SendMessageAsync error]</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD SendMessageAsync (
  title : STRING(255),
@@ -287,13 +138,10 @@ SendMessageAsync
 </code></pre></div>
 <h4 class="section">Inouts</h4><dl class="parameters">
 <a name="title"></a><dt><code>title</code> STRING(255)<dd><p></p></dd><a name="message"></a><dt><code>message</code> STRING(255)<dd><p></p></dd></dl>
-<h3 id="Pushover.PushoverClient_WithCallback" data-uid="Pushover.PushoverClient.WithCallback">
+<h3 id="Pushover.IPushoverClient_WithCallback" data-uid="Pushover.IPushoverClient.WithCallback">
 WithCallback
 </h3><a name="WithCallback"></a>
-<p>Callback parameter may be supplied with a publicly-accessible URL that the
-pushover servers will send a request to when the user has acknowledged your
-notification.
-Only used if priority is set to emergency.</p>
+<p>[copydoc PushoverClient.Pushover#WithCallback error]</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD WithCallback (
  callback : STRING(255)) : IPushoverClient
@@ -305,11 +153,10 @@ Only used if priority is set to emergency.</p>
     <dt> <a class="xref" href="IPushoverClient.html">IPushoverClient</a></dt>
     <dd></dd>
   </dl>
-<h3 id="Pushover.PushoverClient_WithDevice" data-uid="Pushover.PushoverClient.WithDevice">
+<h3 id="Pushover.IPushoverClient_WithDevice" data-uid="Pushover.IPushoverClient.WithDevice">
 WithDevice
 </h3><a name="WithDevice"></a>
-<p>Your user's device name to send the message directly to that device,
-rather than all of the user's devices</p>
+<p>[copydoc PushoverClient.Pushover#WithDevice error]</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD WithDevice (
  device : STRING(80)) : IPushoverClient
@@ -321,11 +168,10 @@ rather than all of the user's devices</p>
     <dt> <a class="xref" href="IPushoverClient.html">IPushoverClient</a></dt>
     <dd></dd>
   </dl>
-<h3 id="Pushover.PushoverClient_WithExpire" data-uid="Pushover.PushoverClient.WithExpire">
+<h3 id="Pushover.IPushoverClient_WithExpire" data-uid="Pushover.IPushoverClient.WithExpire">
 WithExpire
 </h3><a name="WithExpire"></a>
-<p>Specifies how many seconds your notification will continue to be retried for (every retry seconds).
-Only required if priority is set to emergency.</p>
+<p>[copydoc PushoverClient.Pushover#WithExpire error]</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD WithExpire (
  expire : INT) : IPushoverClient
@@ -337,10 +183,10 @@ Only required if priority is set to emergency.</p>
     <dt> <a class="xref" href="IPushoverClient.html">IPushoverClient</a></dt>
     <dd></dd>
   </dl>
-<h3 id="Pushover.PushoverClient_WithPriority" data-uid="Pushover.PushoverClient.WithPriority">
+<h3 id="Pushover.IPushoverClient_WithPriority" data-uid="Pushover.IPushoverClient.WithPriority">
 WithPriority
 </h3><a name="WithPriority"></a>
-<p>Priority of the message</p>
+<p>[copydoc PushoverClient.Pushover#WithPriority error]</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD WithPriority (
  priority : PushoverPriority) : IPushoverClient
@@ -352,10 +198,10 @@ WithPriority
     <dt> <a class="xref" href="IPushoverClient.html">IPushoverClient</a></dt>
     <dd></dd>
   </dl>
-<h3 id="Pushover.PushoverClient_WithProxy" data-uid="Pushover.PushoverClient.WithProxy">
+<h3 id="Pushover.IPushoverClient_WithProxy" data-uid="Pushover.IPushoverClient.WithProxy">
 WithProxy
 </h3><a name="WithProxy"></a>
-<p>Adds a ttl to the Pushover message</p>
+<p>[copydoc PushoverClient.Pushover#WithProxy error]</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD WithProxy (
  port : INT,
@@ -370,11 +216,10 @@ WithProxy
     <dt> <a class="xref" href="IPushoverClient.html">IPushoverClient</a></dt>
     <dd></dd>
   </dl>
-<h3 id="Pushover.PushoverClient_WithRetry" data-uid="Pushover.PushoverClient.WithRetry">
+<h3 id="Pushover.IPushoverClient_WithRetry" data-uid="Pushover.IPushoverClient.WithRetry">
 WithRetry
 </h3><a name="WithRetry"></a>
-<p>Specifies how often (in seconds) the Pushover servers will send the same notification to the user.
-Only required if priority is set to emergency.</p>
+<p>[copydoc PushoverClient.Pushover#WithRetry error]</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD WithRetry (
  retry : INT) : IPushoverClient
@@ -386,10 +231,10 @@ Only required if priority is set to emergency.</p>
     <dt> <a class="xref" href="IPushoverClient.html">IPushoverClient</a></dt>
     <dd></dd>
   </dl>
-<h3 id="Pushover.PushoverClient_WithSound" data-uid="Pushover.PushoverClient.WithSound">
+<h3 id="Pushover.IPushoverClient_WithSound" data-uid="Pushover.IPushoverClient.WithSound">
 WithSound
 </h3><a name="WithSound"></a>
-<p>Priority of the message</p>
+<p>[copydoc PushoverClient.Pushover#WithSound error]</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD WithSound (
  sound : PushoverSound) : IPushoverClient
@@ -401,11 +246,10 @@ WithSound
     <dt> <a class="xref" href="IPushoverClient.html">IPushoverClient</a></dt>
     <dd></dd>
   </dl>
-<h3 id="Pushover.PushoverClient_WithTimestamp" data-uid="Pushover.PushoverClient.WithTimestamp">
+<h3 id="Pushover.IPushoverClient_WithTimestamp" data-uid="Pushover.IPushoverClient.WithTimestamp">
 WithTimestamp
 </h3><a name="WithTimestamp"></a>
-<p>A Unix timestamp of your message's date and time to display to the user,
-rather than the time your message is received by the pushover API</p>
+<p>[copydoc PushoverClient.Pushover#WithTimestamp error]</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD WithTimestamp (
  timestamp : INT) : IPushoverClient
@@ -418,10 +262,10 @@ rather than the time your message is received by the pushover API</p>
     <dt> <a class="xref" href="IPushoverClient.html">IPushoverClient</a></dt>
     <dd></dd>
   </dl>
-<h3 id="Pushover.PushoverClient_WithTimeToLive" data-uid="Pushover.PushoverClient.WithTimeToLive">
+<h3 id="Pushover.IPushoverClient_WithTimeToLive" data-uid="Pushover.IPushoverClient.WithTimeToLive">
 WithTimeToLive
 </h3><a name="WithTimeToLive"></a>
-<p>Adds a ttl to the Pushover message</p>
+<p>[copydoc PushoverClient.Pushover#WithTimeToLive error]</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD WithTimeToLive (
  ttl : INT) : IPushoverClient
@@ -434,10 +278,10 @@ WithTimeToLive
     <dt> <a class="xref" href="IPushoverClient.html">IPushoverClient</a></dt>
     <dd></dd>
   </dl>
-<h3 id="Pushover.PushoverClient_WithUrl" data-uid="Pushover.PushoverClient.WithUrl">
+<h3 id="Pushover.IPushoverClient_WithUrl" data-uid="Pushover.IPushoverClient.WithUrl">
 WithUrl
 </h3><a name="WithUrl"></a>
-<p>A supplementary URL to show with your message</p>
+<p>[copydoc PushoverClient.Pushover#WithUrl error]</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD WithUrl (
  url : STRING(255)) : IPushoverClient
@@ -449,10 +293,10 @@ WithUrl
     <dt> <a class="xref" href="IPushoverClient.html">IPushoverClient</a></dt>
     <dd></dd>
   </dl>
-<h3 id="Pushover.PushoverClient_WithUrlTitle" data-uid="Pushover.PushoverClient.WithUrlTitle">
+<h3 id="Pushover.IPushoverClient_WithUrlTitle" data-uid="Pushover.IPushoverClient.WithUrlTitle">
 WithUrlTitle
 </h3><a name="WithUrlTitle"></a>
-<p>A title for your supplementary URL, otherwise just the URL is shown</p>
+<p>[copydoc PushoverClient.Pushover#WithUrlTitle error]</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD WithUrlTitle (
  urlTitle : STRING(255)) : IPushoverClient
@@ -468,7 +312,7 @@ WithUrlTitle
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/stefanbesler/Pushover-Twincat/blob/c69f7760546d86e920fd0b2583000e601da8b832/docs/reference/Pushover/PushoverClient.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/stefanbesler/Pushover-Twincat/blob/c69f7760546d86e920fd0b2583000e601da8b832/docs/reference/Pushover/IPushoverClient.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

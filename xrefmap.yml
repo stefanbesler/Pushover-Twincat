@@ -1,9 +1,24 @@
 ### YamlMime:XRefMap
 sorted: true
 references:
+- uid: Pushover.IPushoverClient
+  name: IPushoverClient
+  href: reference/Pushover/IPushoverClient.html
 - uid: Pushover.PushoverClient
   name: PushoverClient
   href: reference/Pushover/PushoverClient.html
+- uid: Pushover.PushoverClientTest
+  name: PushoverClientTest
+  href: reference/Pushover/_Tests/PushoverClientTest.html
+- uid: Pushover.PushoverMessageType
+  name: PushoverMessageType
+  href: reference/Pushover/_DataTypes/PushoverMessageType.html
+- uid: Pushover.PushoverPriority
+  name: PushoverPriority
+  href: reference/Pushover/_DataTypes/PushoverPriority.html
+- uid: Pushover.PushoverSound
+  name: PushoverSound
+  href: reference/Pushover/_DataTypes/PushoverSound.html
 - uid: Untitled1.MAIN
   name: MAIN
   href: reference/Untitled1/POUs/MAIN.html

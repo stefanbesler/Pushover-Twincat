@@ -14,10 +14,60 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "reference/Pushover/IPushoverClient.md",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Pushover/IPushoverClient.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "reference/Pushover/PushoverClient.md",
       "output": {
         ".html": {
           "relative_path": "reference/Pushover/PushoverClient.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "reference/Pushover/_DataTypes/PushoverMessageType.md",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Pushover/_DataTypes/PushoverMessageType.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "reference/Pushover/_DataTypes/PushoverPriority.md",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Pushover/_DataTypes/PushoverPriority.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "reference/Pushover/_DataTypes/PushoverSound.md",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Pushover/_DataTypes/PushoverSound.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "reference/Pushover/_Tests/PushoverClientTest.md",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Pushover/_Tests/PushoverClientTest.html"
         }
       },
       "version": ""

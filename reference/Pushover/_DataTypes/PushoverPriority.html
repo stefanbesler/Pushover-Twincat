@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>PushoverPriority | Struckig </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="PushoverPriority | Struckig ">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/stefanbesler/Pushover-Twincat/blob/c69f7760546d86e920fd0b2583000e601da8b832/docs/reference/Pushover/_DataTypes/PushoverPriority.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../../../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Pushover.PushoverPriority">
+<h1 id="pushoverpriority">PushoverPriority</h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="PushoverPriority.html">Pushover</a></dd></dl>
+  
+  </div>
+<h4 class="section">Fields</h4><dl class="parameters">
+<a name="Lowest"></a><dt><code>Lowest = -2</code>
+<dd><p><p>When the priority parameter is specified with a value of -2, messages will be considered lowest priority
+and will not generate any notification. On iOS, the application badge number will be increased.</p>
+</dd><a name="Low"></a><dt><code>Low = -1</code>
+<dd><p><p>Messages with a priority parameter of -1 will be considered low priority and will not generate any sound
+or vibration, but will still generate a popup/scrolling notification depending on the client operating system.
+Messages delivered during a user's quiet hours are sent as though they had a priority of (-1).</p>
+</dd><a name="Normal"></a><dt><code>Normal = 0</code>
+<dd><p><p>Messages sent without a priority parameter, or sent with the parameter set to 0, will have the default priority.
+These messages trigger sound, vibration, and display an alert according to the user's device settings.
+On iOS, the message will display at the top of the screen or as a modal dialog, as well as in the notification center.
+On Android, the message will scroll at the top of the screen and appear in the notification center.</p>
+<p>If a user has quiet hours set and your message is received during those times, your message will be delivered as though it had a priority of -1.</p>
+</dd><a name="High"></a><dt><code>High = 1</code>
+<dd><p><p>Messages sent with a priority of 1 are high priority messages that bypass a user's quiet hours.
+These messages will always play a sound and vibrate (if the user's device is configured to)
+regardless of the delivery time. High-priority should only be used when necessary and appropriate.</p>
+<p>High-priority messages are highlighted in red in the device clients.</p>
+</dd><a name="Emergency"></a><dt><code>Emergency = 2</code>
+<dd><p><p>Emergency-priority notifications are similar to high-priority notifications, but they are repeated until the notification
+is acknowledged by the user. These are designed for dispatching and on-call situations where it is critical that a
+notification be repeatedly shown to the user (or all users of the group that the message was sent to) until it is acknowledged.
+The first user in a group to acknowledge a message will cancel retries for all other users in the group.</p>
+<p>Applications sending emergency notifications are issued a receipt that can be used to get the status of a notification and
+find out whether it was acknowledged, or automatically receive a callback when the user has acknowledged the notification.</p>
+<p>To send an emergency-priority notification, the priority parameter must be set to 2 and the retry and expire parameters must be supplied.</p>
+<p>The retry parameter specifies how often (in seconds) the Pushover servers will send the same notification to the user.
+In a situation where your user might be in a noisy environment or sleeping, retrying the notification (with sound and vibration)
+will help get his or her attention. This parameter must have a value of at least 30 seconds between retries.</p>
+<p>The expire parameter specifies how many seconds your notification will continue to be retried for (every retry seconds).
+If the notification has not been acknowledged in expire seconds, it will be marked as expired and will stop being sent to the user.
+Note that the notification is still shown to the user after it is expired, but it will not prompt the user for acknowledgement.
+This parameter must have a maximum value of at most 10800 seconds (3 hours), though the total number of retries will be capped at 50 regardless of the expire parameter.</p>
+<p>For example, sending a retry parameter of 60 and an expire parameter of 1800 will cause your notification to be retried
+every 60 seconds for 30 minutes. A retry parameter of 30 and an expire parameter of 10800 will retry every 30 seconds up to 25 minutes due to the cap of 50 retries.</p>
+<p>The optional callback parameter may be supplied with a publicly-accessible URL that pushover servers will
+send a request to when the user has acknowledged your notification.
+When your application sends an emergency-priority notification, pushover API will respond with a receipt value that can be used to get information about
+whether the notification has been acknowledged. See pushover receipts and callbacks section for more information.
+If your application is not capable of storing receipt identifiers, you can send a tags parameter of comma-separated, arbitrary tags
+which will be stored with the receipt on pushover servers. You can then use the cancel_by_tag API call to cancel all receipts with a specific tag.</p>
+</dd></dl>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/stefanbesler/Pushover-Twincat/blob/c69f7760546d86e920fd0b2583000e601da8b832/docs/reference/Pushover/_DataTypes/PushoverPriority.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Documentation powered by <a href="https://github.com/Zeugwerk/zkdoc-action">zkdoc</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
