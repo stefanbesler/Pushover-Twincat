@@ -28,7 +28,7 @@ TYPE PushoverSound :
   Updown,
   Vibrate,
   None
-);
+) INT;
 END_TYPE
 ]]></Declaration>
   </DUT>

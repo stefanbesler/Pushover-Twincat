@@ -58,7 +58,7 @@ TYPE PushoverPriority :
   /// If your application is not capable of storing receipt identifiers, you can send a tags parameter of comma-separated, arbitrary tags 
   /// which will be stored with the receipt on pushover servers. You can then use the cancel_by_tag API call to cancel all receipts with a specific tag.
   Emergency := 2
-);
+) INT;
 END_TYPE
 ]]></Declaration>
   </DUT>

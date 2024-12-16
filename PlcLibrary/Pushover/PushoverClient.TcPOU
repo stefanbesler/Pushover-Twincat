@@ -30,13 +30,13 @@
 /// ```
 {attribute 'conditionalshow_all_locals'}
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods and/or properties'}
+{attribute 'hide_all_locals'}
 FUNCTION_BLOCK PushoverClient IMPLEMENTS IPushoverClient
 VAR
   _busy : BOOL;
   _error : BOOL;
   _errorMessage : STRING(255);
   
-  _response : STRING(255);
   _request : PushoverRequest;
   _server : Tc2_System.ADSRDWRTEX;
 END_VAR
@@ -121,8 +121,6 @@ END_IF
 _server(IDXOFFS:=0, 
         WRITELEN:=SIZEOF(_request),
         SRCADDR:=ADR(_request),
-        DESTADDR:=ADR(_response),
-        READLEN:=SIZEOF(_response),
         WRTRD:=TRUE, 
         TMOUT:=T#5S,
         ERR=>,
@@ -132,7 +130,7 @@ _server(IDXOFFS:=0,
 IF _server.ERR // fallback to proxy
 THEN
   Error := TRUE;
-  _errorMessage := _response;
+  ErrorMessage := Tc2_Standard.CONCAT('Error Code: ', UDINT_TO_STRING(_server.ERRID));
 ELSIF NOT _server.BUSY 
 THEN
   Busy := FALSE;
@@ -188,14 +186,30 @@ END_IF]]></ST>
         </Implementation>
       </Set>
     </Property>
-    <Method Name="ErrorMessage" Id="{7b499ef8-eacf-4d4f-8980-fd3275b78050}">
+    <Property Name="ErrorMessage" Id="{fb1419dd-8959-4c52-a678-e27eff869570}">
       <Declaration><![CDATA[/// Only valid if `Error=TRUE`, returns the explanation why the call of an `XXX_Async` method failed.
-METHOD ErrorMessage : STRING(255);
+{attribute 'monitoring' := 'call'}
+PROPERTY ErrorMessage : STRING(255)]]></Declaration>
+      <Get Name="Get" Id="{8cc0de4e-82b4-4158-84b4-5f694a2b39d8}">
+        <Declaration><![CDATA[VAR
+END_VAR
 ]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[ErrorMessage := _errorMessage;]]></ST>
-      </Implementation>
-    </Method>
+        <Implementation>
+          <ST><![CDATA[IF _error
+THEN
+  ErrorMessage := _errorMessage;
+END_IF]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{c440d5c4-cbac-45f0-a41e-5d3d4e4bd3d8}">
+        <Declaration><![CDATA[PROTECTED VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_errorMessage := ErrorMessage;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Method Name="FB_init" Id="{35c9eeb9-61ee-4ff2-8c41-88a6a762ab87}">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT

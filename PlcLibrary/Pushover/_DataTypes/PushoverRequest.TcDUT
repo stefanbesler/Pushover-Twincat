@@ -13,8 +13,6 @@ STRUCT
   CallbackLength : INT;  
   ProxyHostLength : INT;  
   
-  Token : STRING;
-  User : STRING;
   Retry : INT;
   Expire : INT;  
   MessageType : PushoverMessageType;  
@@ -24,14 +22,15 @@ STRUCT
   TimeToLive : INT; //< in seconds
   ProxyPort : INT;
 
-  Title : STRING(250);
-  Message : STRING(255);
+  Token : STRING(80);
+  User : STRING(80);  
   Device : STRING(80);
-  Url : STRING(512);  
-  UrlTitle : STRING(100);
+  Url : STRING(511);  
+  UrlTitle : STRING(99);
   Callback : STRING(255);
   ProxyHost : STRING(80);
-  
+  Title : STRING(249);  
+  Message : STRING(1023);  
 END_STRUCT
 END_TYPE
 ]]></Declaration>

@@ -7,7 +7,7 @@ TYPE PushoverMessageType :
 (
 	Monospace := 0,
   Html
-);
+) INT;
 END_TYPE
 ]]></Declaration>
   </DUT>

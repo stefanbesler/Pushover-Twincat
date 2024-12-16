@@ -82,7 +82,7 @@ THEN
   Busy := TRUE;
 ELSE
   Error := TRUE;
-  _errorMessage := 'Client can not executed parallel requests!';
+  ErrorMessage := 'Client can not executed parallel requests!';
 END_IF]]></ST>
       </Implementation>
     </Method>
