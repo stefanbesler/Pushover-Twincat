@@ -16,7 +16,7 @@
       
       
       
-      <meta name="docfx:docurl" content="https://github.com/stefanbesler/Pushover-Twincat/blob/c1f4812e57248ff1e16682d317a542c00426d612/docs/reference/Pushover/IPushoverClient.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/stefanbesler/Pushover-Twincat/blob/c196c80340e833810fab8ce2e10c4c446fe7229e/docs/reference/Pushover/IPushoverClient.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -94,7 +94,7 @@
 <h3 id="Pushover.IPushoverClient_Clear" data-uid="Pushover.IPushoverClient.Clear">
 Clear
 </h3><a name="Clear"></a>
-<p>[copydoc PushoverClient.Pushover#Clear error]</p>
+<p>Resets all <code>WithXXX</code> statements to their default values.</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD Clear () : IPushoverClient
 </code></pre></div>
@@ -106,7 +106,8 @@ Clear
 <h3 id="Pushover.IPushoverClient_EnableHtml" data-uid="Pushover.IPushoverClient.EnableHtml">
 EnableHtml
 </h3><a name="EnableHtml"></a>
-<p>[copydoc PushoverClient.Pushover#EnableHtml error]</p>
+<p>Enables Monospace in the pushover message
+Either <a class="xref" href="PushoverClient.html#EnableHtml">HTML</a> or <a class="xref" href="PushoverClient.html#EnableMonspace">Monospace</a> can be enabled</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD EnableHtml () : IPushoverClient
 </code></pre></div>
@@ -118,7 +119,8 @@ EnableHtml
 <h3 id="Pushover.IPushoverClient_EnableMonospace" data-uid="Pushover.IPushoverClient.EnableMonospace">
 EnableMonospace
 </h3><a name="EnableMonospace"></a>
-<p>[copydoc PushoverClient.Pushover#EnableMonospace error]</p>
+<p>Enables HTML in the pushover message
+Either <a class="xref" href="PushoverClient.html#EnableHtml">HTML</a> or <a class="xref" href="PushoverClient.html#EnableMonspace">Monospace</a> can be enabled</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD EnableMonospace () : IPushoverClient
 </code></pre></div>
@@ -130,7 +132,6 @@ EnableMonospace
 <h3 id="Pushover.IPushoverClient_SendMessageAsync" data-uid="Pushover.IPushoverClient.SendMessageAsync">
 SendMessageAsync
 </h3><a name="SendMessageAsync"></a>
-<p>[copydoc PushoverClient.Pushover#SendMessageAsync error]</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD SendMessageAsync (
  title : STRING(255),
@@ -141,7 +142,10 @@ SendMessageAsync
 <h3 id="Pushover.IPushoverClient_WithCallback" data-uid="Pushover.IPushoverClient.WithCallback">
 WithCallback
 </h3><a name="WithCallback"></a>
-<p>[copydoc PushoverClient.Pushover#WithCallback error]</p>
+<p>Callback parameter may be supplied with a publicly-accessible URL that the
+pushover servers will send a request to when the user has acknowledged your
+notification.
+Only used if priority is set to emergency.</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD WithCallback (
  callback : STRING(255)) : IPushoverClient
@@ -156,7 +160,8 @@ WithCallback
 <h3 id="Pushover.IPushoverClient_WithDevice" data-uid="Pushover.IPushoverClient.WithDevice">
 WithDevice
 </h3><a name="WithDevice"></a>
-<p>[copydoc PushoverClient.Pushover#WithDevice error]</p>
+<p>Your user's device name to send the message directly to that device,
+rather than all of the user's devices</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD WithDevice (
  device : STRING(80)) : IPushoverClient
@@ -171,7 +176,8 @@ WithDevice
 <h3 id="Pushover.IPushoverClient_WithExpire" data-uid="Pushover.IPushoverClient.WithExpire">
 WithExpire
 </h3><a name="WithExpire"></a>
-<p>[copydoc PushoverClient.Pushover#WithExpire error]</p>
+<p>Specifies how many seconds your notification will continue to be retried for (every retry seconds).
+Only required if priority is set to emergency.</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD WithExpire (
  expire : INT) : IPushoverClient
@@ -186,7 +192,7 @@ WithExpire
 <h3 id="Pushover.IPushoverClient_WithPriority" data-uid="Pushover.IPushoverClient.WithPriority">
 WithPriority
 </h3><a name="WithPriority"></a>
-<p>[copydoc PushoverClient.Pushover#WithPriority error]</p>
+<p>Priority of the message</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD WithPriority (
  priority : PushoverPriority) : IPushoverClient
@@ -201,7 +207,7 @@ WithPriority
 <h3 id="Pushover.IPushoverClient_WithProxy" data-uid="Pushover.IPushoverClient.WithProxy">
 WithProxy
 </h3><a name="WithProxy"></a>
-<p>[copydoc PushoverClient.Pushover#WithProxy error]</p>
+<p>Adds a ttl to the Pushover message</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD WithProxy (
  port : INT,
@@ -219,7 +225,8 @@ WithProxy
 <h3 id="Pushover.IPushoverClient_WithRetry" data-uid="Pushover.IPushoverClient.WithRetry">
 WithRetry
 </h3><a name="WithRetry"></a>
-<p>[copydoc PushoverClient.Pushover#WithRetry error]</p>
+<p>Specifies how often (in seconds) the Pushover servers will send the same notification to the user.
+Only required if priority is set to emergency.</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD WithRetry (
  retry : INT) : IPushoverClient
@@ -234,7 +241,7 @@ WithRetry
 <h3 id="Pushover.IPushoverClient_WithSound" data-uid="Pushover.IPushoverClient.WithSound">
 WithSound
 </h3><a name="WithSound"></a>
-<p>[copydoc PushoverClient.Pushover#WithSound error]</p>
+<p>Priority of the message</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD WithSound (
  sound : PushoverSound) : IPushoverClient
@@ -249,7 +256,8 @@ WithSound
 <h3 id="Pushover.IPushoverClient_WithTimestamp" data-uid="Pushover.IPushoverClient.WithTimestamp">
 WithTimestamp
 </h3><a name="WithTimestamp"></a>
-<p>[copydoc PushoverClient.Pushover#WithTimestamp error]</p>
+<p>A Unix timestamp of your message's date and time to display to the user,
+rather than the time your message is received by the pushover API</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD WithTimestamp (
  timestamp : INT) : IPushoverClient
@@ -265,7 +273,7 @@ WithTimestamp
 <h3 id="Pushover.IPushoverClient_WithTimeToLive" data-uid="Pushover.IPushoverClient.WithTimeToLive">
 WithTimeToLive
 </h3><a name="WithTimeToLive"></a>
-<p>[copydoc PushoverClient.Pushover#WithTimeToLive error]</p>
+<p>Adds a ttl to the Pushover message</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD WithTimeToLive (
  ttl : INT) : IPushoverClient
@@ -281,7 +289,7 @@ WithTimeToLive
 <h3 id="Pushover.IPushoverClient_WithUrl" data-uid="Pushover.IPushoverClient.WithUrl">
 WithUrl
 </h3><a name="WithUrl"></a>
-<p>[copydoc PushoverClient.Pushover#WithUrl error]</p>
+<p>A supplementary URL to show with your message</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD WithUrl (
  url : STRING(255)) : IPushoverClient
@@ -296,7 +304,7 @@ WithUrl
 <h3 id="Pushover.IPushoverClient_WithUrlTitle" data-uid="Pushover.IPushoverClient.WithUrlTitle">
 WithUrlTitle
 </h3><a name="WithUrlTitle"></a>
-<p>[copydoc PushoverClient.Pushover#WithUrlTitle error]</p>
+<p>A title for your supplementary URL, otherwise just the URL is shown</p>
 <div class="codewrapper">
     <pre><code class="lang-st hljs">METHOD WithUrlTitle (
  urlTitle : STRING(255)) : IPushoverClient
@@ -312,7 +320,7 @@ WithUrlTitle
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/stefanbesler/Pushover-Twincat/blob/c1f4812e57248ff1e16682d317a542c00426d612/docs/reference/Pushover/IPushoverClient.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/stefanbesler/Pushover-Twincat/blob/c196c80340e833810fab8ce2e10c4c446fe7229e/docs/reference/Pushover/IPushoverClient.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>
