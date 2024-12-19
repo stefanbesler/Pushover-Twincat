@@ -22,8 +22,7 @@
     "fileMetadataFiles": [],
     "template": [
       "default",
-      "modern",
-      "template"
+      "modern"
     ],
     "postProcessors": [],
     "markdownEngineName": "markdig",
