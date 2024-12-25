@@ -53,11 +53,10 @@ jobs:
     - name: Build
       run: dotnet publish -c Release -o ./publish
       working-directory: PushoverService
-         
 
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: PushoverService
-        path: PushoverService/PushoverService/publish
+        path: PushoverService/publish
           
