@@ -6,7 +6,7 @@ on:
     paths:
       - 'docs/**'
       - 'PlcLibrary/**'
-      - 'PushoverTwincatService/**' 
+      - 'PushoverService/**' 
       - 'Example/**' 
   pull_request:
     branches: [ main ]
@@ -37,7 +37,7 @@ jobs:
             **/*library
 
   build-windows-service:            
-    name: Build PushoverTwinpackService.exe
+    name: Build PushoverService.exe
     runs-on: windows-latest
     steps:
     - name: Checkout code
