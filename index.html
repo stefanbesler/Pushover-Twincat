@@ -16,7 +16,7 @@
       
       
       
-      <meta name="docfx:docurl" content="https://github.com/stefanbesler/Pushover-Twincat/blob/65556074d683e847810ba4447d9835a1f75a0752/docs/index.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/stefanbesler/Pushover-Twincat/blob/59aa1886c1b3fcfa45ec5ac30f00de94b031bfae/docs/index.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -110,8 +110,6 @@ sc start PushoverService
 <li><p>Download the <a href="https://github.com/stefanbesler/pushover-cat/releases/latest">latest release</a></p>
 </li>
 <li><p>Create a service file <code>/etc/systemd/system/pushoverservice.service</code>, which looks similar to</p>
-</li>
-</ol>
 <pre><code>[Unit]
 Description=Pushover TwinCAT Service
 
@@ -125,23 +123,19 @@ Environment=DOTNET_ENVIRONMENT=Production
 WantedBy=multi-user.target
 </code></pre>
 <p>and adapt the placeholders <code>&lt;/path/to/PushoverService.dll&gt;</code> and <code>&lt;youruser&gt;</code></p>
-<ol>
+</li>
 <li><p>Start the service by calling</p>
-<pre><code></code></pre>
+<pre><code>sudo systemctl enable pushoverservice
+sudo systemctl start pushoverservice
+</code></pre>
 </li>
 </ol>
-<p>sudo systemctl enable pushoverservice
-sudo systemctl start pushoverservice</p>
-<pre><code>
-
-## Usage
-
-1. Reference the `Pushover` PLC Library with the [Twinpack](https://github.com/Zeugwerk/Twinpack) Package Manager. Alternatively, get it from the [latest GitHub release](https://github.com/stefanbesler/pushover-cat/releases/latest), install and reference it manually with TwinCAT.
-
-2. Use the following code for sending push notifications
-
-```sti
-PROGRAM MAIN
+<h2 id="usage">Usage</h2>
+<ol>
+<li><p>Reference the <code>Pushover</code> PLC Library with the <a href="https://github.com/Zeugwerk/Twinpack">Twinpack</a> Package Manager. Alternatively, get it from the <a href="https://github.com/stefanbesler/pushover-cat/releases/latest">latest GitHub release</a>, install and reference it manually with TwinCAT.</p>
+</li>
+<li><p>Use the following code for sending push notifications</p>
+<pre><code class="lang-sti">PROGRAM MAIN
 VAR
    _send : BOOL;
    _pushoverClient : Pushover.PushoverClient('&lt;your_pushover_apptoken&gt;', '&lt;your_pushover_user&gt;');
@@ -155,7 +149,9 @@ END_IF
 
 _pushoverClient.Cyclic();
 </code></pre>
-<h2 id="uninstall">Uninstall</h2>
+</li>
+</ol>
+<h2 id="uninstall-windows">Uninstall (Windows)</h2>
 <ol>
 <li><p>Uninstall the Windows Service by opening a Command Prompt with Administrator privileges and running:</p>
 <pre><code>sc stop PushoverService
@@ -163,11 +159,20 @@ sc delete PushoverService
 </code></pre>
 </li>
 </ol>
+<h2 id="uninstall-linux-bsd">Uninstall (Linux, BSD)</h2>
+<ol>
+<li><p>Stop the service by calling</p>
+<pre><code>sudo systemctl stop pushoverservice
+</code></pre>
+</li>
+<li><p>Delete the service file previously created in <code>/etc/systemd/system/pushoverservice.service</code></p>
+</li>
+</ol>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/stefanbesler/Pushover-Twincat/blob/65556074d683e847810ba4447d9835a1f75a0752/docs/index.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/stefanbesler/Pushover-Twincat/blob/59aa1886c1b3fcfa45ec5ac30f00de94b031bfae/docs/index.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>
