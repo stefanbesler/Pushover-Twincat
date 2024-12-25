@@ -34,28 +34,28 @@ There are two main parts of this project
 
 1. Create a service file `/etc/systemd/system/pushoverservice.service`, which looks similar to
 
-  ```
-  [Unit]
-  Description=Pushover TwinCAT Service
+    ```
+    [Unit]
+    Description=Pushover TwinCAT Service
 
-  [Service]
-  ExecStart=/usr/bin/dotnet </path/to/PushoverService.dll>/PushoverService.dll
-  Restart=always
-  User=<youruser>
-  Environment=DOTNET_ENVIRONMENT=Production
+    [Service]
+    ExecStart=/usr/bin/dotnet </path/to/PushoverService.dll>/PushoverService.dll
+    Restart=always
+    User=<youruser>
+    Environment=DOTNET_ENVIRONMENT=Production
 
-  [Install]
-  WantedBy=multi-user.target
-  ```
-  
-  and adapt the placeholders `</path/to/PushoverService.dll>` and `<youruser>`
+    [Install]
+    WantedBy=multi-user.target
+    ```
+
+    and adapt the placeholders `</path/to/PushoverService.dll>` and `<youruser>`
   
 1. Start the service by calling
 
 
    ```
-  sudo systemctl enable pushoverservice
-  sudo systemctl start pushoverservice
+   sudo systemctl enable pushoverservice
+   sudo systemctl start pushoverservice
    ```
 
 
@@ -82,7 +82,7 @@ There are two main parts of this project
    ```
 
 
-## Uninstall
+## Uninstall (Windows)
 
 1. Uninstall the Windows Service by opening a Command Prompt with Administrator privileges and running:
 
@@ -90,5 +90,14 @@ There are two main parts of this project
    sc stop PushoverService
    sc delete PushoverService
    ```
+
+## Uninstall (Linux, BSD)
+
+1. Stop the service by calling
+
+   ```
+   sudo systemctl stop pushoverservice
+   ```   
+1. Delete the service file previously created in `/etc/systemd/system/pushoverservice.service`
 
 
