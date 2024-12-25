@@ -16,7 +16,7 @@
       
       
       
-      <meta name="docfx:docurl" content="https://github.com/stefanbesler/Pushover-Twincat/blob/69e63b0997bb6e9f730ad9b8cfe1f9c9ea3d5dd8/docs/index.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/stefanbesler/Pushover-Twincat/blob/65556074d683e847810ba4447d9835a1f75a0752/docs/index.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -90,31 +90,58 @@ There are two main parts of this project</p>
 <li>An ADS Server implemented with C#, which sends requests to pushover via the pushover api</li>
 <li>A PLC Library, which sends requests to the ADS Server</li>
 </ol>
-<h2 id="installation">Installation</h2>
+<h2 id="installation-windows">Installation (Windows)</h2>
 <ol>
 <li><p>Download the <a href="https://github.com/stefanbesler/pushover-cat/releases/latest">latest release</a></p>
 </li>
-<li><p>Install the Windows Service by opening a Command Prompt with Administrator privileges and running:</p>
-<pre><code>&lt;Path to InstallUtil.exe&gt;\InstallUtil.exe PushoverTwincatService.exe
+<li><p>Install and start the Windows Service by opening a Command Prompt with <strong>Administrator privileges</strong> and running:</p>
+<pre><code>sc create PushoverService binpath=&quot;&lt;ABSOLUTE_PATH_TO_PushoverService.exe&gt;&quot;
+sc start PushoverService
 </code></pre>
-<p><code>InstallUtil.exe</code> can be typically found in</p>
-<ul>
-<li><code>C:\Windows\Microsoft.NET\Framework\v4.0.30319\InstallUtil.exe (for 32-bit)</code></li>
-<li><code>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe (for 64-bit)</code></li>
-</ul>
-</li>
-<li><p>Start the Windows Service by running the command</p>
-<pre><code>net start PushoverTwincatService
+<p>For instance, the commands may look like</p>
+<pre><code>sc create PushoverService binpath=&quot;C:\Users\Stefan\Downloads\PushoverTwincat\PushoverService.exe&quot;
+sc start PushoverService
+
 </code></pre>
 </li>
 </ol>
-<p>Alternatively you can start the service in the Windows Service Dialog.</p>
-<h2 id="usage">Usage</h2>
+<h2 id="installation-linux-bsd">Installation (Linux, BSD)</h2>
 <ol>
-<li><p>Reference the <code>Pushover</code> PLC Library with the <a href="https://github.com/Zeugwerk/Twinpack">Twinpack</a> Package Manager. Alternatively, get it from the <a href="https://github.com/stefanbesler/pushover-cat/releases/latest">latest GitHub release</a>, install and reference it manually with TwinCAT.</p>
+<li><p>Download the <a href="https://github.com/stefanbesler/pushover-cat/releases/latest">latest release</a></p>
 </li>
-<li><p>Use the following code for sending push notifications</p>
-<pre><code class="lang-sti">PROGRAM MAIN
+<li><p>Create a service file <code>/etc/systemd/system/pushoverservice.service</code>, which looks similar to</p>
+</li>
+</ol>
+<pre><code>[Unit]
+Description=Pushover TwinCAT Service
+
+[Service]
+ExecStart=/usr/bin/dotnet &lt;/path/to/PushoverService.dll&gt;/PushoverService.dll
+Restart=always
+User=&lt;youruser&gt;
+Environment=DOTNET_ENVIRONMENT=Production
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<p>and adapt the placeholders <code>&lt;/path/to/PushoverService.dll&gt;</code> and <code>&lt;youruser&gt;</code></p>
+<ol>
+<li><p>Start the service by calling</p>
+<pre><code></code></pre>
+</li>
+</ol>
+<p>sudo systemctl enable pushoverservice
+sudo systemctl start pushoverservice</p>
+<pre><code>
+
+## Usage
+
+1. Reference the `Pushover` PLC Library with the [Twinpack](https://github.com/Zeugwerk/Twinpack) Package Manager. Alternatively, get it from the [latest GitHub release](https://github.com/stefanbesler/pushover-cat/releases/latest), install and reference it manually with TwinCAT.
+
+2. Use the following code for sending push notifications
+
+```sti
+PROGRAM MAIN
 VAR
    _send : BOOL;
    _pushoverClient : Pushover.PushoverClient('&lt;your_pushover_apptoken&gt;', '&lt;your_pushover_user&gt;');
@@ -128,26 +155,19 @@ END_IF
 
 _pushoverClient.Cyclic();
 </code></pre>
-</li>
-</ol>
 <h2 id="uninstall">Uninstall</h2>
 <ol>
 <li><p>Uninstall the Windows Service by opening a Command Prompt with Administrator privileges and running:</p>
-<pre><code>net stop PushoverTwincatService
- &lt;Path to InstallUtil.exe&gt;\InstallUtil.exe /u PushoverTwincatService.exe
+<pre><code>sc stop PushoverService
+sc delete PushoverService
 </code></pre>
-<p><code>InstallUtil.exe</code> can be typically found in</p>
-<ul>
-<li><code>C:\Windows\Microsoft.NET\Framework\v4.0.30319\InstallUtil.exe (for 32-bit)</code></li>
-<li><code>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe (for 64-bit)</code></li>
-</ul>
 </li>
 </ol>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/stefanbesler/Pushover-Twincat/blob/69e63b0997bb6e9f730ad9b8cfe1f9c9ea3d5dd8/docs/index.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/stefanbesler/Pushover-Twincat/blob/65556074d683e847810ba4447d9835a1f75a0752/docs/index.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

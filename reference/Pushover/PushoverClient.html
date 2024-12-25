@@ -16,7 +16,7 @@
       
       
       
-      <meta name="docfx:docurl" content="https://github.com/stefanbesler/Pushover-Twincat/blob/69e63b0997bb6e9f730ad9b8cfe1f9c9ea3d5dd8/docs/reference/Pushover/PushoverClient.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/stefanbesler/Pushover-Twincat/blob/65556074d683e847810ba4447d9835a1f75a0752/docs/reference/Pushover/PushoverClient.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -114,10 +114,7 @@ END_IF
 _pushoverClient.Cyclic();
 </code></pre>
 <div class="codewrapper">
-    <pre><code class="lang-st hljs">{attribute 'conditionalshow_all_locals'}
-{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods and/or properties'}
-{attribute 'hide_all_locals'}
-FUNCTION_BLOCK PushoverClient IMPLEMENTS Pushover.IPushoverClient
+    <pre><code class="lang-st hljs">FUNCTION_BLOCK PushoverClient IMPLEMENTS Pushover.IPushoverClient
 </code></pre></div>
 <h2 class="section" id="constructors">Constructor</h2>
 <h3 id="Pushover.PushoverClient_FB_init" data-uid="Pushover.PushoverClient.FB_init">
@@ -148,8 +145,7 @@ Busy
 ready or an error occurs during sending (e.g. not internet connection, Pushover Twincat Service is not running, ...)
 the property <a class="xref" href="PushoverClient.html#Error">Error</a> returns <code>true</code>.</p>
 <div class="codewrapper">
-    <pre><code class="lang-st hljs">{attribute 'monitoring' := 'call'}
-PROPERTY Busy : BOOL
+    <pre><code class="lang-st hljs">PROPERTY Busy : BOOL
 </code></pre></div>
 <h4 class="section">Property Value</h4>
   <dl class="parameters">
@@ -162,8 +158,7 @@ Error
 <p>Returns <code>true</code> if any error occured when calling an <code>XXX_Async</code> method of this object. The details of the error
 are available by checking the proeprty</p>
 <div class="codewrapper">
-    <pre><code class="lang-st hljs">{attribute 'monitoring' := 'call'}
-PROPERTY Error : BOOL
+    <pre><code class="lang-st hljs">PROPERTY Error : BOOL
 </code></pre></div>
 <h4 class="section">Property Value</h4>
   <dl class="parameters">
@@ -175,8 +170,7 @@ ErrorMessage
 </h3><a name="ErrorMessage"></a>
 <p>Only valid if <code>Error=TRUE</code>, returns the explanation why the call of an <code>XXX_Async</code> method failed.</p>
 <div class="codewrapper">
-    <pre><code class="lang-st hljs">{attribute 'monitoring' := 'call'}
-PROPERTY ErrorMessage : STRING(255)
+    <pre><code class="lang-st hljs">PROPERTY ErrorMessage : STRING(255)
 </code></pre></div>
 <h4 class="section">Property Value</h4>
   <dl class="parameters">
@@ -468,7 +462,7 @@ WithUrlTitle
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/stefanbesler/Pushover-Twincat/blob/69e63b0997bb6e9f730ad9b8cfe1f9c9ea3d5dd8/docs/reference/Pushover/PushoverClient.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/stefanbesler/Pushover-Twincat/blob/65556074d683e847810ba4447d9835a1f75a0752/docs/reference/Pushover/PushoverClient.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

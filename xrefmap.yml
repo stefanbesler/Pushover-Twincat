@@ -7,9 +7,6 @@ references:
 - uid: Pushover.PushoverClient
   name: PushoverClient
   href: reference/Pushover/PushoverClient.html
-- uid: Pushover.PushoverClientTest
-  name: PushoverClientTest
-  href: reference/Pushover/_Tests/PushoverClientTest.html
 - uid: Pushover.PushoverMessageType
   name: PushoverMessageType
   href: reference/Pushover/_DataTypes/PushoverMessageType.html
