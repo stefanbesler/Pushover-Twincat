@@ -9,25 +9,55 @@ There are two main parts of this project
 1. A PLC Library, which sends requests to the ADS Server
 
 
-## Installation
+## Installation (Windows)
 
 1. Download the [latest release](https://github.com/stefanbesler/pushover-cat/releases/latest)
 
-1. Install the Windows Service by opening a Command Prompt with Administrator privileges and running:
+1. Install and start the Windows Service by opening a Command Prompt with **Administrator privileges** and running:
+
+
    ```
-   <Path to InstallUtil.exe>\InstallUtil.exe PushoverTwincatService.exe
+   sc create PushoverService binpath="<ABSOLUTE_PATH_TO_PushoverService.exe>"
+   sc start PushoverService
+   ```
+   
+   For instance, the commands may look like
+   ```
+   sc create PushoverService binpath="C:\Users\Stefan\Downloads\PushoverTwincat\PushoverService.exe"
+   sc start PushoverService
+   
+   ```
+   
+## Installation (Linux, BSD)
+
+1. Download the [latest release](https://github.com/stefanbesler/pushover-cat/releases/latest)
+
+1. Create a service file `/etc/systemd/system/pushoverservice.service`, which looks similar to
+
+  ```
+  [Unit]
+  Description=Pushover TwinCAT Service
+
+  [Service]
+  ExecStart=/usr/bin/dotnet </path/to/PushoverService.dll>/PushoverService.dll
+  Restart=always
+  User=<youruser>
+  Environment=DOTNET_ENVIRONMENT=Production
+
+  [Install]
+  WantedBy=multi-user.target
+  ```
+  
+  and adapt the placeholders `</path/to/PushoverService.dll>` and `<youruser>`
+  
+1. Start the service by calling
+
+
+   ```
+  sudo systemctl enable pushoverservice
+  sudo systemctl start pushoverservice
    ```
 
-   `InstallUtil.exe` can be typically found in
-    - `C:\Windows\Microsoft.NET\Framework\v4.0.30319\InstallUtil.exe (for 32-bit)`
-    - `C:\Windows\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe (for 64-bit)`
-
-1. Start the Windows Service by running the command
-   ```
-   net start PushoverTwincatService
-   ```
-
-  Alternatively you can start the service in the Windows Service Dialog.
 
 ## Usage
 
@@ -57,12 +87,8 @@ There are two main parts of this project
 1. Uninstall the Windows Service by opening a Command Prompt with Administrator privileges and running:
 
    ```
-   net stop PushoverTwincatService
-    <Path to InstallUtil.exe>\InstallUtil.exe /u PushoverTwincatService.exe
+   sc stop PushoverService
+   sc delete PushoverService
    ```
-
-   `InstallUtil.exe` can be typically found in
-    - `C:\Windows\Microsoft.NET\Framework\v4.0.30319\InstallUtil.exe (for 32-bit)`
-    - `C:\Windows\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe (for 64-bit)`   
 
 
