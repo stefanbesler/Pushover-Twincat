@@ -1,4 +1,7 @@
 .Zeugwerk/libraries
+PlcLibrary/tests
+PushoverService/publish
+
 # TwinCAT files
 gh-pages
 gh-pages.pub

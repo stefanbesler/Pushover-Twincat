@@ -1,20 +1,14 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using System.Collections.Generic;
+﻿using System.Runtime.InteropServices;
 using System.Text;
 using TwinCAT.Ads.Server;
 using TwinCAT.Ads;
-using Microsoft.Extensions.Logging;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Net.Http;
 
 namespace Pushover.Twincat
 {
     /*
      * Extend the TcAdsServer class to implement ADS Server
      */
-    public class Server : AdsServer
+    public class PushoverService : AdsServer
     {
 
         [StructLayout(LayoutKind.Sequential, Pack = 8, CharSet = CharSet.Ansi)]
@@ -87,12 +81,12 @@ namespace Pushover.Twincat
             { 22, "none" },
         };
 
-        public Server(ushort port, string portName, ILogger logger) : base(port, portName, logger)
+        public PushoverService(ushort port, string portName, ILogger logger) : base(port, portName, logger)
         {
 
         }
 
-        ~Server()
+        ~PushoverService()
         {
         }
 

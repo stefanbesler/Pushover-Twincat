@@ -43,20 +43,21 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
       
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v1
+    - name: Setup Dotnet
+      uses: actions/setup-dotnet@v4
       
     - name: Restore NuGet packages
-      run: nuget restore PushoverTwincatService.sln
-      working-directory: PushoverTwincatService
+      run: dotnet restore
+      working-directory: PushoverService
 
-    - name: Build Solution
-      run: msbuild PushoverTwincatService.sln /p:Configuration=Release
-      working-directory: PushoverTwincatService
+    - name: Build
+      run: dotnet publish -c Release -o ./publish
+      working-directory: PushoverService
+         
 
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: PushoverTwinpackService
-        path: PushoverTwincatService/PushoverTwincatService/bin/Release   
+        name: PushoverService
+        path: PushoverService/PushoverService/publish
           
