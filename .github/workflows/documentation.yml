@@ -18,7 +18,7 @@ jobs:
         with:
           username: ${{ secrets.ACTIONS_ZGWK_USERNAME }}
           password: ${{ secrets.ACTIONS_ZGWK_PASSWORD }}
-          filepath: PlcLibrary/Pushover.plcproj
+          filepath: Pushover/Pushover.plcproj
           working-directory: "PlcLibrary"
           doc-folder: "../docs"
       - name: Deploy
