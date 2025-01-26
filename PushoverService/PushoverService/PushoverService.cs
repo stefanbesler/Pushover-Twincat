@@ -175,6 +175,10 @@ namespace Pushover.Twincat
                     {
                         result = ResultReadWriteBytes.CreateError((AdsErrorCode)(0xFFFF));
                     }
+                    finally
+                    {
+                        Marshal.FreeHGlobal(ptr);
+                    }
                 }
             }
 

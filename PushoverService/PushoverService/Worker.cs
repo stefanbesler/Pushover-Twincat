@@ -20,7 +20,7 @@ namespace Pushover
                     _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 }
 
-                var server = new PushoverService(25733, "Twinpack Pushover Server", _logger);
+                var server = new PushoverService(25733, "Twincat Pushover Server", _logger);
                 await server.ConnectServerAndWaitAsync(stoppingToken);
                 await Task.Delay(10000);
             }
